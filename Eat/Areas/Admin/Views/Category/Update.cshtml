@@ -1,0 +1,11 @@
+﻿@using Eat.ViewModels.Category
+@model UpdateCategoryVM
+
+<form asp-area="admin" asp-action="update" asp-controller="category">
+    <div class="form-group">
+        <label asp-for="Name">Category</label>
+        <input asp-for="Name" type="text" class="form-control" id="name" placeholder="Enter Category">
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>

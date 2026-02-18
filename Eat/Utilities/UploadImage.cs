@@ -6,33 +6,19 @@ namespace Eat.Utilities
     {
         public static async Task<string> SaveImage(this IFormFile file, IWebHostEnvironment _env, string path)
         {
-            if (file.ContentType.Contains("image/"))
+            if (!Directory.Exists(path))
             {
-
-                if (!Directory.Exists(path))
-                {
-                    Directory.CreateDirectory(path);
-                }
-
-                if (file.Length > 2 * 1024 * 1024)
-                {
-                    return ("Image boyukdur");
-                }
-
-                string fileName = Guid.NewGuid() + "_" + file.FileName;
-                string fullPath = Path.Combine(_env.WebRootPath, path, fileName);
-                using (var steam = new FileStream(fullPath, FileMode.Create))
-                {
-                    await file.CopyToAsync(steam);
-                }
-
-                return fileName;
+                Directory.CreateDirectory(path);
             }
-            else
+
+            string fileName = Guid.NewGuid() + "_" + file.FileName;
+            string fullName = Path.Combine(_env.WebRootPath, path, fileName);
+
+            using (var stream = new FileStream(fullName, FileMode.Create))
             {
-                return ("Image yukleyin");
+                await file.CopyToAsync(stream);
             }
-           
+            return fileName;
         }
     }
-}
+    }

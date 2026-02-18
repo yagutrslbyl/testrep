@@ -1,0 +1,160 @@
+/* ===============================
+   HEADER
+=================================*/
+
+.write-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 40px;
+  border-bottom: 1px solid #eee;
+  background: #fff;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.write-header .center {
+  text-align: center;
+}
+
+.write-header h1 {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.status {
+  font-size: 0.75rem;
+  color: #888;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.back-link {
+  text-decoration: none;
+  font-weight: 500;
+  color: #444;
+  transition: 0.2s;
+}
+
+.back-link:hover {
+  color: var(--color-primary);
+}
+
+.right {
+  display: flex;
+  gap: 12px;
+}
+
+/* ===============================
+   TOOLBAR
+=================================*/
+
+.editor-toolbar {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  padding: 18px;
+  background: #fafafa;
+  border-bottom: 1px solid #eee;
+}
+
+.tool {
+  font-size: 1.4rem;
+  cursor: pointer;
+  padding: 10px 14px;
+  border-radius: 8px;
+  transition: 0.2s ease;
+}
+
+.tool:hover {
+  background: rgba(0,0,0,0.05);
+}
+
+/* ===============================
+   EDITOR CONTAINER
+=================================*/
+
+.editor-container {
+  max-width: 850px;
+  margin: 60px auto 100px;
+  padding: 0 20px;
+}
+
+/* ===============================
+   PART TITLE
+=================================*/
+
+.part-title {
+  width: 100%;
+  font-size: 2.2rem;
+  font-weight: 700;
+  border: none;
+  outline: none;
+  text-align: center;
+  margin-bottom: 50px;
+  color: #222;
+}
+
+.part-title::placeholder {
+  color: #bbb;
+}
+
+/* ===============================
+   EDITOR
+=================================*/
+
+.editor {
+  min-height: 500px;
+  font-size: 1.15rem;
+  line-height: 1.9;
+  color: #333;
+  outline: none;
+  caret-color: var(--color-primary);
+}
+
+/* Placeholder Effect */
+.editor:empty:before {
+  content: attr(data-placeholder);
+  color: #bbb;
+  pointer-events: none;
+}
+
+/* Media inside editor */
+
+.editor img,
+.editor video {
+  max-width: 100%;
+  display: block;
+  margin: 30px auto;
+  border-radius: 8px;
+}
+
+/* Focus Effect */
+
+.editor:focus {
+  background: #fff;
+}
+
+/* Smooth Writing Feel */
+
+.editor,
+.part-title {
+  font-family: Georgia, serif;
+}
+
+/* Responsive */
+
+@media (max-width: 768px) {
+
+  .write-header {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .editor-container {
+    margin: 40px auto;
+  }
+
+}

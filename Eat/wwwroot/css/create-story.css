@@ -1,0 +1,217 @@
+body {
+  font-family: 'Inter', sans-serif;
+  background: #f5f6fa;
+  color: #222;
+}
+
+/* HEADER */
+.story-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 50px;
+  background: white;
+  border-bottom: 1px solid #eee;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.story-header h1 {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.story-header .left {
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.story-header .right {
+  display: flex;
+  gap: 15px;
+}
+
+/* MAIN LAYOUT */
+.story-container {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 60px;
+  padding: 60px 80px;
+}
+
+/* LEFT SIDE */
+.story-left {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.cover-upload {
+  width: 100%;
+}
+
+.cover-preview {
+  width: 100%;
+  height: 420px;
+  background: white;
+  border-radius: 16px;
+  border: 2px dashed #ddd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.cover-preview:hover {
+  border-color: black;
+}
+
+.cover-placeholder {
+  text-align: center;
+  color: #777;
+}
+
+.cover-placeholder span {
+  font-size: 40px;
+}
+
+/* STATUS CARD */
+.story-status-card {
+  background: white;
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+}
+
+.story-status-card h4 {
+  margin-bottom: 10px;
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 6px 14px;
+  background: #eee;
+  border-radius: 50px;
+  font-size: 12px;
+  margin-top: 10px;
+}
+
+/* RIGHT SIDE */
+.story-right {
+  max-width: 800px;
+}
+
+.form-card {
+  background: white;
+  padding: 50px;
+  border-radius: 18px;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.05);
+}
+
+.form-card h2 {
+  margin-bottom: 40px;
+  font-size: 22px;
+}
+
+/* FORM GROUP */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 28px;
+}
+
+.form-group span {
+  margin-bottom: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #555;
+}
+
+/* INPUTS */
+input,
+textarea,
+select {
+  padding: 14px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  font-size: 15px;
+  transition: 0.3s;
+}
+
+textarea {
+  min-height: 130px;
+  resize: vertical;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: black;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0,0,0,0.05);
+}
+
+/* INLINE INPUT */
+.inline-input {
+  display: flex;
+  gap: 10px;
+}
+
+.inline-input button {
+  padding: 0 18px;
+  border-radius: 10px;
+  border: none;
+  background: black;
+  color: white;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.inline-input button:hover {
+  opacity: 0.85;
+}
+
+/* TAG BUTTON */
+.tag-btn {
+  padding: 12px 16px;
+  border-radius: 10px;
+  border: 1px dashed #ccc;
+  background: #fafafa;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.tag-btn:hover {
+  border-color: black;
+  background: #f1f1f1;
+}
+
+/* RESPONSIVE */
+@media(max-width: 1100px) {
+  .story-container {
+    grid-template-columns: 1fr;
+    padding: 40px;
+  }
+
+  .story-left {
+    flex-direction: row;
+  }
+
+  .cover-preview {
+    height: 300px;
+  }
+}
+
+@media(max-width: 768px) {
+  .story-left {
+    flex-direction: column;
+  }
+
+  .form-card {
+    padding: 30px;
+  }
+}
+.edit-cover {
+  background: #eee;}

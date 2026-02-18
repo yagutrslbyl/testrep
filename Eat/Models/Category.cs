@@ -1,10 +1,11 @@
-﻿using Eat.Models.Base;
-
-namespace Eat.Models
+﻿namespace Eat.Models
 {
-    public class Category : BaseEntity
+    public class Category
     {
+        public int Id { get; set; }
         public string Name { get; set; }
-public List<Product> Products { get; set; }
+
+        public List<Story> Stories { get; set; }
     }
+
 }

@@ -1,125 +1,139 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wattpad | Home</title>
 
-    <title>Eatery Cafe and Restaurant Template</title>
-    <!--
+    <link rel="stylesheet" href="~/css/chapter-read.css">
+    <link rel="stylesheet" href="~/css/components.css">
+    <link rel="stylesheet" href="~/css/create-story.css">
+    <link rel="stylesheet" href="~/css/home.css">
+    <link rel="stylesheet" href="~/css/layout.css">
+    <link rel="stylesheet" href="~/css/main.css">
+    <link rel="stylesheet" href="~/css/mystories.css">
+    <link rel="stylesheet" href="~/css/profile.css">
+    <link rel="stylesheet" href="~/css/reset.css">
+    <link rel="stylesheet" href="~/css/search.css">
+    <link rel="stylesheet" href="~/css/story-dashboard.css">
+    <link rel="stylesheet" href="~/css/story-detail.css">
+    <link rel="stylesheet" href="~/css/variables.css">
+    <link rel="stylesheet" href="~/css/write-story.css">
 
-    Eatery Cafe Template
 
-    http://www.templatemo.com/tm-515-eatery
 
-    -->
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
-    <meta name="description" content="">
-    <meta name="keywords" content="">
-    <meta name="author" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/font-awesome.min.css">
-    <link rel="stylesheet" href="css/animate.css">
-    <link rel="stylesheet" href="css/owl.carousel.css">
-    <link rel="stylesheet" href="css/owl.theme.default.min.css">
-    <link rel="stylesheet" href="css/magnific-popup.css">
-
-    <!-- MAIN CSS -->
-    <link rel="stylesheet" href="css/templatemo-style.css">
-
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <!-- PRE LOADER -->
-    <section class="preloader">
-        <div class="spinner">
+    <header class="header">
+        <div class="container header__content">
 
-            <span class="spinner-rotate"></span>
+            <!-- LEFT -->
+            <div class="header__left">
+                <div class="logo">StoryVerse</div>
 
-        </div>
-    </section>
+                <nav class="nav">
+                    <a href="#">Browse</a>
+                    <a href="#">Community</a>
+                    <a href="#">Premium</a>
+                </nav>
+            </div>
 
-    <div>@RenderBody();</div>
+            <!-- SEARCH -->
+            <div class="header__search">
+                <form action="search.html" method="GET">
+                    <input type="text" name="q" placeholder="Search stories, writers..." />
+                </form>
+            </div>
 
-    <!-- FOOTER -->
-    <footer id="footer" data-stellar-background-ratio="0.5">
-        <div class="container">
-            <div class="row">
+            <!-- RIGHT -->
+            <div class="header__right">
 
-                <div class="col-md-3 col-sm-8">
-                    <div class="footer-info">
-                        <div class="section-title">
-                            <h2 class="wow fadeInUp" data-wow-delay="0.2s">Find us</h2>
-                        </div>
-                        <address class="wow fadeInUp" data-wow-delay="0.4s">
-                            <p>123 nulla a cursus rhoncus,<br> augue sem viverra 10870<br>id ultricies sapien</p>
-                        </address>
+                <!-- Write -->
+                <div class="write-wrapper">
+                    <button class="write-btn">Write ▾</button>
+                    <div class="write-dropdown">
+                        <a href="create-story.html">➕ Create a new story</a>
+                        <a href="mystories.html">My Stories</a>
+                        <hr>
+                        <a href="#">Writer Resources</a>
+                        <a href="#">Writing Contests</a>
                     </div>
                 </div>
 
-                <div class="col-md-3 col-sm-8">
-                    <div class="footer-info">
-                        <div class="section-title">
-                            <h2 class="wow fadeInUp" data-wow-delay="0.2s">Reservation</h2>
-                        </div>
-                        <address class="wow fadeInUp" data-wow-delay="0.4s">
-                            <p>090-080-0650 | 090-070-0430</p>
-                            <p><a href="mailto:info@company.com">info@company.com</a></p>
-                            <p>LINE: eatery247 </p>
-                        </address>
-                    </div>
+                <!-- Notification -->
+                <div class="notification">
+                    🔔
+                    <span class="badge">3</span>
                 </div>
 
-                <div class="col-md-4 col-sm-8">
-                    <div class="footer-info footer-open-hour">
-                        <div class="section-title">
-                            <h2 class="wow fadeInUp" data-wow-delay="0.2s">Open Hours</h2>
-                        </div>
-                        <div class="wow fadeInUp" data-wow-delay="0.4s">
-                            <p>Monday: Closed</p>
-                            <div>
-                                <strong>Tuesday to Friday</strong>
-                                <p>7:00 AM - 9:00 PM</p>
-                            </div>
-                            <div>
-                                <strong>Saturday - Sunday</strong>
-                                <p>11:00 AM - 10:00 PM</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
-                <div class="col-md-2 col-sm-4">
-                    <ul class="wow fadeInUp social-icon" data-wow-delay="0.4s">
-                        <li><a href="#" class="fa fa-facebook-square" attr="facebook icon"></a></li>
-                        <li><a href="#" class="fa fa-twitter"></a></li>
-                        <li><a href="#" class="fa fa-instagram"></a></li>
-                        <li><a href="#" class="fa fa-google"></a></li>
-                    </ul>
-
-                    <div class="wow fadeInUp copyright-text" data-wow-delay="0.8s">
-                        <p>
-                            <br>Copyright &copy; 2018 <br>Your Company Name
-
-                            <br><br>Design: <a rel="nofollow" href="http://templatemo.com" target="_parent">TemplateMo</a>
-                        </p>
+                <!-- Profile -->
+                <div class="profile-wrapper">
+                    <div class="profile">Q</div>
+                    <div class="dropdown">
+                        <a href="profile.html">My Profile</a>
+                        <a href="#">Inbox</a>
+                        <a href="#">Library</a>
+                        <hr>
+                        <a href="#">Settings</a>
+                        <a href="#">Log Out</a>
                     </div>
                 </div>
 
             </div>
         </div>
+    </header>
+    <main class="container">
+
+                <div>@RenderBody()</div>
+    <footer class="footer">
+        <div class="container footer__grid">
+
+            <div class="footer__brand">
+                <h3>Wattpad</h3>
+                <p>Where stories live and writers grow.</p>
+            </div>
+
+            <div>
+                <h4>Discover</h4>
+                <a href="#">Browse</a>
+                <a href="#">Premium</a>
+                <a href="#">Writing Contests</a>
+                <a href="#">Community</a>
+            </div>
+
+            <div>
+                <h4>Company</h4>
+                <a href="#">About Us</a>
+                <a href="#">Careers</a>
+                <a href="#">Press</a>
+                <a href="#">Contact</a>
+            </div>
+
+            <div>
+                <h4>Support</h4>
+                <a href="#">Help Center</a>
+                <a href="#">Guidelines</a>
+                <a href="#">Terms</a>
+                <a href="#">Privacy Policy</a>
+            </div>
+
+        </div>
+
+        <div class="footer__bottom">
+            © 2026 Wattpad Clone. All rights reserved.
+        </div>
     </footer>
 
 
-    <!-- SCRIPTS -->
-    <script src="js/jquery.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/jquery.stellar.min.js"></script>
-    <script src="js/wow.min.js"></script>
-    <script src="js/owl.carousel.min.js"></script>
-    <script src="js/jquery.magnific-popup.min.js"></script>
-    <script src="js/smoothscroll.js"></script>
-    <script src="js/custom.js"></script>
+    </main>
+
+    <script src="~/js/carousel.js"></script>
+    <script src="~/js/main.js"></script>
+    <script src="~/js/profile.js"></script>
+    <script src="~/js/write.js"></script>
 
 </body>
 </html>

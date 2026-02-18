@@ -10,8 +10,9 @@ namespace Eat.DAL
         {
             
         }
-        public DbSet<Product> Products { get; set; }
-        public DbSet<Category> Categories { get; set; }
+        public DbSet<Story> Stories { get; set; }
+        public DbSet<Chapter> Chapters { get; set; }
+        public DbSet<Comment> Comments { get; set; }
 
     }
 }

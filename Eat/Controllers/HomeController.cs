@@ -12,7 +12,11 @@ namespace Eat.Controllers
         {
             return View();
         }
+        public IActionResult Dashboard()
+        {
+            return View();
+        }
 
-        
+
     }
 }

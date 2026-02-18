@@ -1,0 +1,146 @@
+body {
+  font-family: 'Inter', sans-serif;
+  background: #f9fafb;
+}
+
+/* HERO */
+.profile-hero {
+  background: linear-gradient(135deg, #ff5000, #ff7a3d);
+  color: white;
+  text-align: center;
+  padding: 80px 20px;
+}
+
+.profile-avatar {
+  width: 110px;
+  height: 110px;
+  background: rgba(0,0,0,0.2);
+  border-radius: 50%;
+  margin: 0 auto 20px;
+  display: grid;
+  place-items: center;
+  font-size: 2.5rem;
+  font-weight: 800;
+}
+
+.profile-hero h1 {
+  font-size: 2rem;
+  margin-bottom: 8px;
+}
+
+.username {
+  opacity: 0.9;
+  margin-bottom: 30px;
+}
+
+.stats {
+  display: flex;
+  justify-content: center;
+  gap: 60px;
+}
+
+.stats strong {
+  display: block;
+  font-size: 1.5rem;
+}
+
+.stats span {
+  font-size: 0.85rem;
+  opacity: 0.85;
+}
+
+/* TABS */
+.profile-tabs {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #e5e7eb;
+  padding: 20px 0;
+}
+
+.tabs-left button {
+  background: none;
+  border: none;
+  font-weight: 600;
+  margin-right: 24px;
+  padding-bottom: 10px;
+  cursor: pointer;
+  color: #6b7280;
+}
+
+.tabs-left .active {
+  color: #111827;
+  border-bottom: 3px solid #ff5000;
+}
+
+.profile-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.coin {
+  background: #fff3ed;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 20px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* CONTENT */
+.profile-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  margin-top: 40px;
+}
+
+/* CARDS */
+.card {
+  background: white;
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.05);
+  transition: 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+}
+
+.card h3 {
+  margin-bottom: 16px;
+}
+
+/* MINI STORIES */
+.mini-story {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+.mini-cover {
+  width: 60px;
+  height: 80px;
+  background: linear-gradient(135deg, #ff5000, #ff7a3d);
+  color: white;
+  display: grid;
+  place-items: center;
+  font-weight: 700;
+  border-radius: 8px;
+}
+
+.mini-story h4 {
+  margin-bottom: 4px;
+}
+
+.mini-story span {
+  font-size: 0.8rem;
+  color: #6b7280;
+}
+.mini-story p {
+  font-size: 0.85rem;
+  color: #374151;
+  font-weight: 600;
+}

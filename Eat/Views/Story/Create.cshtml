@@ -1,0 +1,136 @@
+﻿@using Eat.ViewModels.Story
+@model StoryCreateViewModel
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create New Story | Wattpad</title>
+
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/create-story.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header class="story-header">
+        <div class="left">
+            ← <span>Add Story Info</span>
+        </div>
+
+        <h1 contenteditable="true">Untitled Story</h1>
+
+        <div class="right">
+            <button class="btn btn--ghost">Cancel</button>
+            <button type="submit" class="btn btn--primary">
+                Start Writing
+            </button>
+
+        </div>
+    </header>
+
+    <main class="story-container">
+
+        <!-- LEFT SIDE -->
+        <div class="story-left">
+
+            <div class="cover-upload">
+                <label for="coverInput">
+                    <div class="cover-preview" id="coverPreview">
+                        <div class="cover-placeholder">
+                            <span>🖼</span>
+                            <p>Add a cover</p>
+                        </div>
+                    </div>
+                </label>
+                <input type="file" id="coverInput" accept="image/*" hidden>
+            </div>
+
+            <div class="story-status-card">
+                <h4>Publishing</h4>
+                <p>Your story is currently in draft mode.</p>
+                <span class="status-badge">Draft</span>
+            </div>
+
+        </div>
+
+        <!-- RIGHT SIDE -->
+        <div class="story-right">
+
+            <form asp-action="Create"
+                  asp-controller="Story"
+                  method="post"
+                  enctype="multipart/form-data"
+                  class="story-form">
+
+                <div class="form-card">
+                    <h2>Story Details</h2>
+
+                    <label class="form-group">
+                        <span>Title</span>
+                        <input asp-for="Title" type="text" placeholder="Untitled Story">
+                    </label>
+
+                    <label class="form-group">
+                        <span>Description</span>
+                        <textarea asp-for="Description" placeholder="Describe your story..."></textarea>
+                    </label>
+
+                    <label class="form-group">
+                        <span>Main Characters</span>
+                        <div class="inline-input">
+                            <input type="text" placeholder="Character name">
+                            <button type="button">+</button>
+                        </div>
+                    </label>
+
+                    <label class="form-group">
+                        <span>Category</span>
+                        <select>
+                            <option>Select a category</option>
+                            <option>Romance</option>
+                            <option>Fantasy</option>
+                            <option>Drama</option>
+                            <option>Science Fiction</option>
+                        </select>
+                    </label>
+
+                    <label class="form-group">
+                        <span>Tags</span>
+                        <button type="button" class="tag-btn">Add a tag +</button>
+                    </label>
+
+                    <label class="form-group">
+                        <span>Target Audience</span>
+                        <select>
+                            <option>Who is your primary audience?</option>
+                            <option>Young Adult</option>
+                            <option>Adult</option>
+                            <option>Everyone</option>
+                        </select>
+                    </label>
+
+                    <label class="form-group">
+                        <span>Language</span>
+                        <select>
+                            <option>English</option>
+                            <option>Turkish</option>
+                        </select>
+                    </label>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </main>
+
+    <script src="js/create-story.js"></script>
+</body>
+</html>

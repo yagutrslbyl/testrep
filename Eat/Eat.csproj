@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\admin\" />
-    <Folder Include="wwwroot\Upload\Product\" />
   </ItemGroup>
 
   <ItemGroup>

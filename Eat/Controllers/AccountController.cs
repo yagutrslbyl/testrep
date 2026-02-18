@@ -23,7 +23,7 @@ namespace Eat.Controllers
         {
             return View();
         }
-
+        [HttpPost]
         public async Task<IActionResult> Register(RegisterVM vm)
         {
             if (!ModelState.IsValid)
@@ -56,6 +56,7 @@ namespace Eat.Controllers
         {
             return View();
         }
+        [HttpPost]
         public async Task<IActionResult> Login(LoginVM vm)
         {
             if (!ModelState.IsValid)

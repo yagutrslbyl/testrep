@@ -1,0 +1,221 @@
+.story-detail {
+    padding-top: 50px;
+    padding-bottom: 80px;
+}
+
+/* ===============================
+   TOP SECTION
+=================================*/
+
+.story-header {
+    display: flex;
+    gap: 60px;
+    margin-bottom: 60px;
+    align-items: flex-start;
+}
+
+    .story-header img {
+        width: 135px;
+        height: 255px;
+        aspect-ratio: 2 / 3;
+        object-fit: cover; /* ??kil d?yi?s? d? ölçü d?yi?m?z */
+        border-radius: 16px;
+        display: block;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    }
+
+.story-cover {
+    width: 240px;
+    border-radius: 12px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    transition: 0.3s ease;
+}
+
+    .story-cover:hover {
+        transform: translateY(-6px);
+    }
+
+.story-info h1 {
+    font-size: 36px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.story-author {
+    color: #777;
+    margin-bottom: 20px;
+}
+
+.story-stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px;
+    margin-bottom: 25px;
+    color: #666;
+    font-size: 0.95rem;
+}
+
+.story-actions {
+    display: flex;
+    gap: 15px;
+}
+
+.btn--dark {
+    background: #000;
+    color: #fff;
+    padding: 14px 26px;
+    border-radius: 30px;
+    font-weight: 500;
+    transition: 0.2s ease;
+}
+
+    .btn--dark:hover {
+        transform: translateY(-2px);
+    }
+
+.btn--outline {
+    border: 1px solid #ddd;
+    background: #fff;
+    padding: 14px 22px;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+    .btn--outline:hover {
+        background: #f7f7f7;
+    }
+
+/* ===============================
+   CONTENT GRID
+=================================*/
+
+.story-content {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 60px;
+}
+
+/* ===============================
+   LEFT CONTENT
+=================================*/
+
+.story-description {
+    margin-bottom: 40px;
+}
+
+    .story-description h3,
+    .story-chapters h3,
+    .story-right h3 {
+        margin-bottom: 15px;
+        font-size: 1.2rem;
+    }
+
+    .story-description p {
+        line-height: 1.8;
+        color: #444;
+    }
+
+.story-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 40px;
+}
+
+    .story-tags span {
+        background: #f3f3f3;
+        padding: 8px 16px;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        transition: 0.2s ease;
+        cursor: pointer;
+    }
+
+        .story-tags span:hover {
+            background: var(--color-primary);
+            color: white;
+        }
+
+.story-chapters ul {
+    list-style: none;
+}
+
+.story-chapters li {
+    display: flex;
+    justify-content: space-between;
+    padding: 16px 0;
+    border-bottom: 1px solid #eee;
+    transition: 0.2s ease;
+}
+
+    .story-chapters li:hover {
+        background: #fafafa;
+        padding-left: 10px;
+    }
+
+.story-chapters a {
+    text-decoration: none;
+    color: #111;
+    font-weight: 500;
+}
+
+/* ===============================
+   RIGHT SIDE
+=================================*/
+
+.story-right {
+    background: #fafafa;
+    padding: 25px;
+    border-radius: 12px;
+}
+
+.related-card {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+    .related-card:hover {
+        transform: translateX(6px);
+    }
+
+    .related-card img {
+        width: 65px;
+        height: 95px;
+        object-fit: cover;
+        border-radius: 6px;
+    }
+
+    .related-card h4 {
+        font-size: 0.95rem;
+        margin-bottom: 4px;
+    }
+
+    .related-card span {
+        font-size: 0.8rem;
+        color: #777;
+    }
+
+/* ===============================
+   RESPONSIVE
+=================================*/
+
+@media (max-width: 1024px) {
+
+    .story-header {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .story-content {
+        grid-template-columns: 1fr;
+    }
+
+    .story-right {
+        margin-top: 40px;
+    }
+}

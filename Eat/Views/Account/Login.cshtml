@@ -1,12 +1,15 @@
-﻿@{
+﻿@using Eat.ViewModels.Account
+@{
     Layout=null;
 }
+@model LoginVM
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="~/css/components.css">
 
     <link rel="stylesheet" href="~/css/reset.css">
     <link rel="stylesheet" href="~/css/login.css">
@@ -29,16 +32,17 @@
             <div class="login-box">
                 <h2>Sign In</h2>
 
-                <form action="#" method="POST">
-
+                <form  method="POST" asp-controller="account" asp-action="login">
+                    <div class="text-danger" asp-validation-summary="All"></div>
                     <div class="form-group">
-                        <label>Email</label>
-                        <input type="email" name="Email" required>
+                        <label asp-for="UserName">Username</label>
+                        <input asp-for="UserName" type="text" required>
+
                     </div>
 
                     <div class="form-group">
-                        <label>Password</label>
-                        <input type="password" name="Password" required>
+                        <label asp-for="Password">Password</label>
+                        <input asp-for=Password type="password" required>
                     </div>
 
                     <div class="form-options">
@@ -46,10 +50,6 @@
                             <input type="checkbox" name="RememberMe">
                             Remember Me
                         </label>
-
-                        <a href="#" class="forgot-password">
-                            Forgot Password?
-                        </a>
                     </div>
 
                     <button type="submit" class="btn-login">
@@ -60,7 +60,7 @@
 
                 <div class="register-link">
                     Don’t have an account?
-                    <a href="register.html">Create Account</a>
+                    <a asp-controller="Account" asp-action="Register">Create Account</a>
                 </div>
 
             </div>
@@ -69,6 +69,6 @@
 
     </div>
 
-    <script src="js/login.js"></script>
+    <script src="~/js/login.js"></script>
 </body>
 </html>

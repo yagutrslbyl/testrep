@@ -120,3 +120,16 @@
 .write-dropdown.show {
   display: flex;
 }
+/* AUTH BUTTONS */
+.btn-login,
+.btn-register {
+    padding: 10px 22px;
+    border-radius: 25px;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    margin-left: 10px;
+    display: inline-block;
+}
+

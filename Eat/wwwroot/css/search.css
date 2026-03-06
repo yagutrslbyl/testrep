@@ -192,3 +192,36 @@ body {
     position: static;
   }
 }
+.no-results {
+    text-align: center;
+    padding: 60px 20px;
+    background: #fafafa;
+    border-radius: 12px;
+    margin-top: 30px;
+}
+
+    .no-results img {
+        width: 180px;
+        opacity: .8;
+        margin-bottom: 20px;
+    }
+
+    .no-results h3 {
+        font-size: 22px;
+        margin-bottom: 10px;
+    }
+
+    .no-results p {
+        color: #777;
+        margin-bottom: 20px;
+    }
+
+.browse-btn {
+    display: inline-block;
+    padding: 10px 18px;
+    background: #ff6123;
+    color: white;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+}

@@ -1,5 +1,106 @@
-﻿<!-- SECTION 1 - Featured -->
-<section class="story-section">
+﻿@model Eat.ViewModels.StoryVMs.PublishedStoriesVM
+
+<section class="hero">
+    <div class="container hero__content">
+
+        <div class="hero__text">
+            <h1>
+                Come for the story.<br />
+                Stay for the connection.
+            </h1>
+
+            <p>
+                Stories better than streaming and comments sections better than your group chat.
+                Discover millions of stories written by creators just like you.
+            </p>
+
+            <div class="hero__buttons">
+                <button class="btn btn--dark">Start Reading</button>
+                <a class="btn btn--dark" asp-controller="story" asp-action="Create" class="btn btn--outline">Start Writing</a>
+            </div>
+        </div>
+
+        <div class="hero__image">
+            <img src="assets/images/hero-illustration.png" alt="Community Illustration">
+        </div>
+
+    </div>
+</section>
+
+<!-- Bölüm 1 -->
+<section>
+    <h2 class="section-title">Binge from start to finish</h2>
+    <h3 class="subsection-title">Completed stories</h3>
+
+    <div class="carousel-wrapper">
+        <div class="carousel-track">
+            
+            @foreach (var story in Model.Stories)
+            {
+                <div class="book-card">
+                    <a asp-controller="Story"
+                       asp-action="ReaderDetails"
+                       asp-route-id="@story.Id">
+                        <img src="~/uploads/stories/@story.CoverImageUrl" alt="cover" />
+                    </a>
+                    <div class="book-info">
+                        <div class="book-title">@story.Title</div>
+                        <div class="book-tags">@story.Chapters.Sum(c => c.Views) views</div>
+                    </div>
+                </div>
+            }
+          
+
+            <!-- Döngü hissi için başa yakın tekrar -->
+            @* <div class="book-card">
+                <img src="https://i.pinimg.com/736x/41/9f/a7/419fa7a21fe1caa02af8ea86a4aa727e.jpg" alt="cover">
+                <div class="book-info">
+                    <div class="book-title">bangchan</div>
+                    <div class="book-tags">3.7K</div>
+                </div>
+            </div> *@
+        </div>
+    </div>
+</section>
+
+
+<!-- Bölüm 2 -->
+<section>
+    <h2 class="section-title">Your next read</h2>
+
+    <div class="carousel-wrapper">
+        <div class="carousel-track">
+
+
+            @foreach (var story in Model.Stories)
+            {
+                <div class="book-card">
+                    <a asp-controller="Story"
+                       asp-action="ReaderDetails"
+                       asp-route-id="@story.Id">
+                        <img src="~/uploads/stories/@story.CoverImageUrl" alt="cover" />
+                    </a>
+                    <div class="book-info">
+                        <div class="book-title">@story.Title</div>
+                        <div class="book-tags">@story.Chapters.Sum(c => c.Views) views</div>
+                    </div>
+                </div>
+            }
+
+            <!-- Döngü hissi için başa yakın tekrar -->
+            @* <div class="book-card">
+                <img src="https://i.pinimg.com/736x/41/9f/a7/419fa7a21fe1caa02af8ea86a4aa727e.jpg" alt="cover">
+                <div class="book-info">
+                    <div class="book-title">10 Ways To Get A Human...</div>
+                    <div class="book-tags">adventure</div>
+                </div>
+            </div> *@
+        </div>
+    </div>
+</section>
+
+<!-- SECTION 1 - Featured -->
+@* <section class="story-section">
     <div class="section-header">
         <h2>Öne Çıkanlar</h2>
         <a href="#">Tümünü Gör</a>
@@ -37,6 +138,8 @@
         <button class="nav-btn next">&#10095;</button>
     </div>
 </section>
+
+
 
 <section class="story-section">
     <div class="section-header">
@@ -116,5 +219,26 @@
 
         <button class="nav-btn next">&#10095;</button>
     </div>
-</section>
+</section> *@
 
+
+
+<!-- FEATURES -->
+<section class="features">
+    <div class="container feature-grid">
+        <div class="feature">
+            <h3>Write Freely</h3>
+            <p>Publish your stories chapter by chapter and grow your audience organically.</p>
+        </div>
+
+        <div class="feature">
+            <h3>Connect Globally</h3>
+            <p>Join millions of readers and writers from all around the world.</p>
+        </div>
+
+        <div class="feature">
+            <h3>Build Your Fanbase</h3>
+            <p>Interact with readers and build a strong, loyal community.</p>
+        </div>
+    </div>
+</section>

@@ -1,12 +1,15 @@
-﻿@{
+﻿@using Eat.ViewModels.Account
+@{
     Layout = null;
 }
+@model RegisterVM
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Create Account</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="~/css/components.css">
 
     <link rel="stylesheet" href="~/css/reset.css">
     <link rel="stylesheet" href="~/css/register.css">
@@ -29,26 +32,34 @@
             <div class="register-box">
                 <h2>Create Account</h2>
 
-                <form action="#" method="POST">
-
+                <form method="POST" asp-controller="account" asp-action="register">
+                    <div class="text-danger" asp-validation-summary="All"></div>
                     <div class="form-group">
-                        <label>Username</label>
-                        <input type="text" name="Username" required>
+                        <label asp-for="Name">Name</label>
+                        <input asp-for="Name" type="text" required>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Surname">Surname</label>
+                        <input asp-for="Surname" type="text"  required>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="UserName">Username</label>
+                        <input asp-for="UserName" type="text" required>
                     </div>
 
                     <div class="form-group">
-                        <label>Email</label>
-                        <input type="email" name="Email" required>
+                        <label asp-for="Email">Email</label>
+                        <input asp-for="Email" type="email"  required>
                     </div>
 
                     <div class="form-group">
-                        <label>Password</label>
-                        <input type="password" name="Password" id="password" required>
+                        <label asp-for="Password">Password</label>
+                        <input asp-for="Password" type="password"  id="password" required>
                     </div>
 
                     <div class="form-group">
-                        <label>Confirm Password</label>
-                        <input type="password" id="confirmPassword" required>
+                        <label asp-for="ConfirmPassword">Confirm Password</label>
+                        <input  asp-for="ConfirmPassword" type="password" id="confirmPassword" required>
                     </div>
 
                     <div class="form-check">
@@ -64,7 +75,7 @@
 
                 <div class="login-link">
                     Already have an account?
-                    <a href="login.html">Login</a>
+                   <a asp-controller="Account" asp-action="Login">Login</a>
                 </div>
 
             </div>

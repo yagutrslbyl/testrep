@@ -1,0 +1,168 @@
+﻿@using Eat.ViewModels.Notification
+@model NotificationViewModel
+
+
+
+
+<div class="notifications-container">
+
+
+
+    <section class="notification-section votes-section">
+        <h2>Oylamalar</h2>
+
+        @foreach (var vote in Model.Votes)
+        {
+            <div class="notification-item vote-item">
+                
+                <div class="notification-content">
+                    <p>
+                        <strong>@vote.User.UserName</strong> oyladı:
+                        <span class="story-title">@vote.Story.Title</span>
+                    </p>
+
+                    <span class="time">@vote.Story.CreatedDate</span>
+                </div>
+
+                <div class="star-icon">★</div>
+
+            </div>
+        }
+    </section>
+    <section class="notification-section comments-section">
+        <h2>Yorumlar</h2>
+
+        @foreach (var comment in Model.Comments)
+        {
+            <div class="notification-item comment-item">
+
+                <div class="notification-content">
+                    <p>
+                        <strong>@comment.User.UserName</strong> yorum yaptı:
+                        <span class="story-title">@comment.Story.Title</span>
+                    </p>
+
+                    <p class="comment-preview">
+                        @comment.Content
+                    </p>
+
+                    <span class="time">@comment.CreatedDate</span>
+
+                </div>
+
+            </div>
+        }
+    </section>
+
+    @* <!-- ================== OYLAMALAR / VOTES SECTION ================== -->
+    <section class="notification-section votes-section">
+        <h2 class="section-title">Oylamalar</h2>
+
+        <div class="notification-item vote-item">
+            <div class="user-avatar">
+                <img src="https://via.placeholder.com/44" alt="AzizeKaraba">
+            </div>
+            <div class="notification-content">
+                <p>
+                    <strong>AzizeKaraba</strong> oyladı:
+                    <span class="story-title">Let Me Make You Feel Better | Rslbyl - Part 1</span>
+                </p>
+                <span class="time">dün 20:05</span>
+            </div>
+            <div class="star-icon">★</div>
+        </div>
+
+        <div class="notification-item vote-item">
+            <div class="user-avatar">
+                <img src="https://via.placeholder.com/44" alt="ssslaaaaa">
+            </div>
+            <div class="notification-content">
+                <p>
+                    <strong>ssslaaaaa</strong> oyladı:
+                    <span class="story-title">Bebek peri | Vampir ve peri - Part 44</span>
+                </p>
+                <span class="time">dün 16:49</span>
+            </div>
+            <div class="star-icon">★</div>
+        </div>
+
+        <div class="notification-item vote-item">
+            <div class="user-avatar">
+                <img src="https://via.placeholder.com/44" alt="vigiriguuu">
+            </div>
+            <div class="notification-content">
+                <p>
+                    <strong>vigiriguuu</strong> oyladı:
+                    <span class="story-title">Don't dare me | Hyunlix - 51: Final</span>
+                </p>
+                <span class="time">dün 16:37</span>
+            </div>
+            <div class="star-icon">★</div>
+        </div>
+
+    </section>
+
+
+    <!-- ================== YORUMLAR & CEVAPLAR SECTION ================== -->
+    <section class="notification-section comments-section">
+        <h2 class="section-title">Yorumlar ve Cevaplar</h2>
+
+        <div class="notification-item comment-item">
+            <div class="user-avatar">
+                <img src="https://via.placeholder.com/44" alt="vigiriguuu">
+            </div>
+            <div class="notification-content">
+                <p>
+                    <strong>vigiriguuu</strong> yorum yaptı:
+                    <span class="story-title">Don't dare me | Hyunlix - 51: Final</span>
+                </p>
+                <p class="comment-preview">anne bittii</p>
+                <span class="time">dün 16:37</span>
+            </div>
+        </div>
+
+        <div class="notification-item comment-item">
+            <div class="user-avatar">
+                <img src="https://via.placeholder.com/44" alt="vigiriguuu">
+            </div>
+            <div class="notification-content">
+                <p>
+                    <strong>vigiriguuu</strong> yorum yaptı:
+                    <span class="story-title">Don't dare me | Hyunlix - 51: Final</span>
+                </p>
+                <p class="comment-preview">hamile dimi</p>
+                <span class="time">dün 16:36</span>
+            </div>
+        </div>
+
+        <div class="notification-item reply-item">
+            <div class="user-avatar">
+                <img src="https://via.placeholder.com/44" alt="ssslaaaaa">
+            </div>
+            <div class="notification-content">
+                <p>
+                    <strong>ssslaaaaa</strong> bir yoruma cevap verdi:
+                    <span class="story-title">Bebek peri | Vampir ve peri - Part 41</span>
+                </p>
+                <span class="time">dün 16:28</span>
+            </div>
+        </div>
+
+        <!-- Ekstra örnek - listeye ekleme bildirimi -->
+        <div class="notification-item list-item">
+            <div class="user-avatar">
+                <img src="https://via.placeholder.com/44" alt="vigiriguuu">
+            </div>
+            <div class="notification-content">
+                <p>
+                    <strong>vigiriguuu</strong> hikayeyi okuma listesine ekledi:
+                    <span class="story-title">Don't dare me | Hyunlix</span>
+                </p>
+                <span class="list-name">→ onerilerim</span>
+                <span class="time">dün 16:37</span>
+            </div>
+        </div>
+
+    </section> *@
+
+</div>

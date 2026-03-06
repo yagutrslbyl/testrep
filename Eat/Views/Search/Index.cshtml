@@ -1,0 +1,147 @@
+﻿@model IEnumerable<Eat.ViewModels.StoryVMs.ReaderStoryDetailsVM>
+
+<main class="container search-page">
+
+    <!-- LEFT FILTER -->
+    <aside class="search-filters">
+        <div class="filter-card">
+            <h3>Filter Results</h3>
+
+            <form method="post" asp-action="Results" asp-controller="Search">
+                <input type="text" name="query" placeholder="Search stories..." value="@ViewBag.SearchQuery" />
+
+                <div class="filter-group">
+                    <h4>Length</h4>
+                    <label><input type="radio" name="lengthFilter" value="Any" @(ViewBag.LengthFilter == "Any" ? "checked" : "")> Any Length</label>
+                    <label><input type="radio" name="lengthFilter" value="1-10" @(ViewBag.LengthFilter == "1-10" ? "checked" : "")> 1 - 10 Parts</label>
+                    <label><input type="radio" name="lengthFilter" value="10-20" @(ViewBag.LengthFilter == "10-20" ? "checked" : "")> 10 - 20 Parts</label>
+                    <label><input type="radio" name="lengthFilter" value="20-50" @(ViewBag.LengthFilter == "20-50" ? "checked" : "")> 20 - 50 Parts</label>
+                    <label><input type="radio" name="lengthFilter" value="50+" @(ViewBag.LengthFilter == "50+" ? "checked" : "")> 50+ Parts</label>
+                </div>
+
+                <div class="filter-group">
+                    <h4>Last Updated</h4>
+                    <label><input type="radio" name="lastUpdatedFilter" value="Anytime" @(ViewBag.LastUpdatedFilter == "Anytime" ? "checked" : "")> Anytime</label>
+                    <label><input type="radio" name="lastUpdatedFilter" value="Today" @(ViewBag.LastUpdatedFilter == "Today" ? "checked" : "")> Today</label>
+                    <label><input type="radio" name="lastUpdatedFilter" value="ThisWeek" @(ViewBag.LastUpdatedFilter == "ThisWeek" ? "checked" : "")> This Week</label>
+                    <label><input type="radio" name="lastUpdatedFilter" value="ThisMonth" @(ViewBag.LastUpdatedFilter == "ThisMonth" ? "checked" : "")> This Month</label>
+                </div>
+
+                <button type="submit">Search</button>
+            </form>
+        </div>
+    </aside>
+
+    <!-- RESULTS -->
+    <section class="search-results">
+        <div class="results-header">
+            <h2 id="searchTitle">Results for "@ViewBag.SearchQuery"</h2>
+            <span class="result-count">@((Model != null) ? Model.Count() : 0) Stories Found</span>
+            @* <span class="result-count">@Model.Count() Stories Found</span> *@
+        </div>
+        @if (Model != null && Model.Any())
+{
+        @foreach (var story in Model)
+        {
+            <div class="result-card">
+                <img src="~/uploads/stories/@story.CoverImageUrl" alt="@story.Title">
+
+                <div class="result-info">
+                        <a asp-controller="Story"
+                           asp-action="ReaderDetails"
+                           asp-route-id="@story.Id"
+                           style="color:black; font-weight:bold; text-decoration:none;">
+                            @story.Title
+                        </a>
+
+                    <div class="result-stats">
+                        <span>👁 @story.TotalViews</span>
+                         <span>⭐ @story.Votes</span> 
+                        <span>📖 @story.Chapters.Count Parts</span>
+                    </div>
+
+                    <p>@story.Description</p>
+                </div>
+            </div>
+        }
+        }
+        else
+        {
+            <div class="no-results">
+                
+
+                <h3>No stories found</h3>
+
+                <p>
+                    We couldn't find anything for
+                    <strong>"@ViewBag.SearchQuery"</strong>
+                </p>
+
+                <a href="/Browse" class="browse-btn">
+                    Browse Stories
+                </a>
+            </div>
+            
+        }
+
+        @* <!-- STORY CARD -->
+        <div class="result-card">
+            <img src="images/sample-cover.jpg">
+
+            <div class="result-info">
+                <h3>TURUNCU KAFA (BxBxB) +18</h3>
+
+                @* <div class="badges">
+                    <span class="badge complete">Complete</span>
+                    <span class="badge mature">Mature</span>
+                </div> 
+
+                <div class="result-stats">
+                    <span>👁 2.7M</span>
+                    <span>⭐ 136K</span>
+                    <span>📖 100 Parts</span>
+                </div>
+
+                <p>
+                    Atalay, Barkın, Ceyhun ve onları durmadan sınayan turuncu kafa...
+                </p>
+            </div>
+        </div>
+
+        <div class="result-card">
+            <img src="images/related1.jpg">
+
+            <div class="result-info">
+                <h3>Söz // bxb</h3>
+
+                <div class="badges">
+                    <span class="badge complete">Complete</span>
+                    <span class="badge mature">Mature</span>
+                </div>
+
+                <div class="result-stats">
+                    <span>👁 1M</span>
+                    <span>⭐ 60.5K</span>
+                    <span>📖 57 Parts</span>
+                </div>
+
+                <p>
+                    Komutan, geri döneceğinize söz verdin...
+                </p>
+            </div>
+        </div> *@
+
+    </section>
+
+    <!-- RIGHT SIDE -->
+    <aside class="search-right">
+        <div class="premium-box">
+            <h3>Go Premium</h3>
+            <p>Read unlimited stories without ads and unlock exclusive content.</p>
+            <button class="premium-btn">Upgrade Now</button>
+        </div>
+    </aside>
+
+</main>
+
+<script src="js/search.js"></script>

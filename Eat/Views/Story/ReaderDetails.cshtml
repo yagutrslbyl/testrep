@@ -1,0 +1,124 @@
+﻿@model Eat.ViewModels.StoryVMs.ReaderStoryDetailsVM
+<main class="container story-detail">
+
+    <!-- TOP SECTION -->
+    <section class="story-header">
+
+        <img src="~/uploads/stories/@Model.CoverImageUrl"
+             alt="@Model.Title"
+             class="story-cover">
+
+        <div class="story-info">
+            <h1>@Model.Title</h1>
+
+            <div class="story-author">
+                by <strong>@Model.AuthorName</strong>
+            </div>
+
+            <div class="story-stats">
+                <span>👁 @Model.TotalViews Reads</span>
+                
+                <span>📖 @Model.Chapters.Count Parts</span>
+        
+            </div>
+
+            <div class="story-actions">
+                @if (Model.Chapters.Any())
+                {
+                    <a asp-controller="Story"
+                       asp-action="ReadChapter"
+                       asp-route-id="@Model.Chapters.First().Id"
+                       class="btn btn--dark">
+                        Start Reading
+                    </a>
+                }
+            </div>
+        </div>
+
+    </section>
+
+    <!-- CONTENT -->
+    <section class="story-content">
+
+        <!-- LEFT -->
+        <div class="story-left">
+
+            <!-- DESCRIPTION -->
+            <div class="story-description">
+                <h3>Description</h3>
+                <p>@Model.Description</p>
+            </div>
+
+            <!-- TAGS -->
+            <div class="story-tags">
+                @foreach (var tag in Model.Tags)
+                {
+                    <span>#@tag</span>
+                }
+            </div>
+
+            <!-- TABLE OF CONTENTS -->
+            <div class="story-chapters">
+                <h3>Table of Contents</h3>
+
+                <ul>
+                    @foreach (var chapter in Model.Chapters)
+                    {
+                        <li>
+                            <a asp-controller="Story"
+                               asp-action="ReadChapter"
+                               asp-route-id="@chapter.Id">
+                                @chapter.Title
+                            </a>
+                            <span>@chapter.CreatedDate.ToString("MMM dd, yyyy")</span>
+                        </li>
+                    }
+                    
+                </ul>
+            </div>
+
+        </div>
+
+        <!-- RIGHT -->
+        <aside class="story-right">
+
+            <h3>Related Stories</h3>
+            @foreach (var related in Model.RelatedStories)
+            {
+                <div class="related-card">
+                    <a asp-controller="Story"
+                       asp-action="ReaderDetails"
+                       asp-route-id="@related.Id">
+
+                        <img src="~/uploads/stories/@related.CoverImageUrl"
+                             alt="@related.Title">
+
+                        <div>
+                            <h4>@related.Title</h4>
+                            @* <span>@related.ChapterCount parts</span> *@
+                        </div>
+                    </a>
+                </div>
+            }
+
+            @* <div class="related-card">
+                <img src="https://i.pinimg.com/1200x/9d/43/de/9d43de7e6617ea55388d7e8c7ac1b4ff.jpg" alt="">
+                <div>
+                    <h4>Unwanted Wedlock</h4>
+                    <span>25 parts</span>
+                </div>
+            </div>
+
+            <div class="related-card">
+                <img src="https://i.pinimg.com/1200x/9d/43/de/9d43de7e6617ea55388d7e8c7ac1b4ff.jpg" alt="">
+                <div>
+                    <h4>Billionaire's Ex-Wife</h4>
+                    <span>23 parts</span>
+                </div>
+            </div> *@
+
+        </aside>
+
+    </section>
+
+</main>

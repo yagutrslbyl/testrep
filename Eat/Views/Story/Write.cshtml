@@ -1,0 +1,147 @@
+﻿@model Eat.ViewModels.StoryVMs.CreateChapterVM
+
+@{
+    Layout = null;
+}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Write Chapter</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    @* <link rel="stylesheet" href="@Url.Content("~/css/write-story.css")" /> *@
+    <link rel="stylesheet"
+          href="~/css/write-story.css"
+          asp-append-version="true" />
+</head>
+<body>
+
+    <form asp-action="SaveChapter" method="post">
+        @Html.AntiForgeryToken()
+
+
+        <input type="hidden" asp-for="StoryId" />
+        <input type="hidden" asp-for="Id" />
+
+    
+
+    <!-- HEADER -->
+    <header class="write-header">
+
+        <!-- STORY DROPDOWN -->
+        <div class="header-left">
+                <div class="story-header">
+                    <div class="story-info">
+                        <button asp-controller="Story"
+                                asp-action="StoryDetails"
+                                asp-route-id="@Model.StoryId"
+                                class="dropdown-arrow">
+                            ↢
+                        </button>
+                        
+                    </div>
+                </div>
+            <div class="story-dropdown">
+                <button class="story-button">
+                        @ViewBag.StoryTitle ▾
+                </button>
+
+                <div class="dropdown-menu">
+                    <div class="dropdown-title">Chapters</div>
+
+                        @if (Model.Chapters != null && Model.Chapters.Any())
+                        {
+                            @foreach (var chapter in Model.Chapters)
+                            {
+                                <a asp-action="Write"
+                                   asp-route-storyId="@Model.StoryId"
+                                   asp-route-chapterId="@chapter.Id"
+                                   class="chapter-item @(Model.Id == chapter.Id ? "active" : "")">
+                                    @chapter.Title
+                                </a>
+                            }
+                        }
+                        else
+                        {
+                            <div class="chapter-item no-chapters">Hələ chapter yoxdur</div>
+                        }
+                  
+                    <div class="dropdown-divider"></div>
+
+                        <div class="add-chapter">
+                            <a asp-controller="Story"
+                               asp-action="StartChapter"
+                               asp-route-id="@Model.StoryId"
+                               class="new-part-btn">
+                                New Chapter
+                            </a>
+                        </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <!-- RIGHT ACTIONS -->
+        <div class="header-right">
+                <a class="btn btn--dark" asp-controller="Story" asp-action="ReadChapter"  asp-route-id="@Model.Id" >Preview</a>
+                <button type="submit" class="btn btn-light">Save</button>
+                @if (Model.Id != null && Model.Id > 0)
+                {
+                    <button type="submit"
+                            formaction="@Url.Action("PublishChapter", "Story")"
+                            formmethod="post"
+                            class="btn btn-dark">
+                        Publish
+                    </button>
+                }
+       
+        </div>
+
+    </header>
+
+
+
+
+    <!-- MEDIA PLACEHOLDER -->
+    <div class="media-upload">
+        <div class="media-box">
+            <span>🖼</span>
+            <span>🎥</span>
+        </div>
+    </div>
+    <!-- MAIN EDITOR -->
+    <main class="editor-wrapper">
+
+            <input asp-for="Title"
+                   class="chapter-title" name="Title"
+                   placeholder="Enter chapter title..." />
+
+            <div id="editor"
+                 class="editor"
+                 contenteditable="true"
+                 data-placeholder="Start writing your story...">
+                @(string.IsNullOrEmpty(Model.Content) ? "" : Html.Raw(Model.Content))
+            </div>
+
+            <!-- HIDDEN TEXTAREA -->
+            <textarea asp-for="Content" id="hiddenContent" style="display:none;"></textarea>
+
+
+    </main>
+    </form>
+
+</body>
+<script>
+    const editor = document.getElementById("editor");
+    const hiddenInput = document.getElementById("hiddenContent");
+    const form = document.querySelector("form");
+
+    form.addEventListener("submit", function () {
+        hiddenInput.value = editor.innerHTML;
+    });
+   
+</script>
+</html>

@@ -30,8 +30,14 @@ namespace Eat.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
+                    b.Property<string>("Bio")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CoverImageUrl")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
@@ -40,6 +46,9 @@ namespace Eat.Migrations
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
+
+                    b.Property<string>("FullName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
@@ -68,6 +77,12 @@ namespace Eat.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
 
+                    b.Property<string>("ProfileImageUrl")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Pronoun")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
@@ -95,6 +110,23 @@ namespace Eat.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
+            modelBuilder.Entity("Eat.Models.Category", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Categories");
+                });
+
             modelBuilder.Entity("Eat.Models.Chapter", b =>
                 {
                     b.Property<int>("Id")
@@ -110,6 +142,9 @@ namespace Eat.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<bool>("IsPublished")
+                        .HasColumnType("bit");
+
                     b.Property<int>("StoryId")
                         .HasColumnType("int");
 
@@ -117,11 +152,39 @@ namespace Eat.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("Views")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("StoryId");
 
                     b.ToTable("Chapters");
+                });
+
+            modelBuilder.Entity("Eat.Models.ChapterVote", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ChapterId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Upvote")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ChapterId");
+
+                    b.ToTable("ChapterVote");
                 });
 
             modelBuilder.Entity("Eat.Models.Comment", b =>
@@ -131,6 +194,9 @@ namespace Eat.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("ChapterId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Content")
                         .IsRequired()
@@ -142,17 +208,17 @@ namespace Eat.Migrations
                     b.Property<int>("StoryId")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UserId1")
+                    b.Property<string>("UserId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ChapterId");
+
                     b.HasIndex("StoryId");
 
-                    b.HasIndex("UserId1");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Comments");
                 });
@@ -165,6 +231,12 @@ namespace Eat.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int?>("CategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CoverImageUrl")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
@@ -172,21 +244,95 @@ namespace Eat.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsPublished")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Language")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("MainCharacters")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Tags")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("UserId")
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("Views")
                         .HasColumnType("int");
 
-                    b.Property<string>("UserId1")
+                    b.Property<int>("Votes")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Stories");
+                });
+
+            modelBuilder.Entity("Eat.Models.StoryVote", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("StoryId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Upvote")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId1");
+                    b.HasIndex("StoryId");
 
-                    b.ToTable("Stories");
+                    b.HasIndex("UserId", "StoryId")
+                        .IsUnique();
+
+                    b.ToTable("StoryVotes");
+                });
+
+            modelBuilder.Entity("Eat.Models.UserFollow", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("FollowedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("FollowerId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("FollowingId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FollowerId");
+
+                    b.HasIndex("FollowingId");
+
+                    b.ToTable("UserFollows");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -333,8 +479,23 @@ namespace Eat.Migrations
                     b.Navigation("Story");
                 });
 
+            modelBuilder.Entity("Eat.Models.ChapterVote", b =>
+                {
+                    b.HasOne("Eat.Models.Chapter", "Chapter")
+                        .WithMany("Votes")
+                        .HasForeignKey("ChapterId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Chapter");
+                });
+
             modelBuilder.Entity("Eat.Models.Comment", b =>
                 {
+                    b.HasOne("Eat.Models.Chapter", null)
+                        .WithMany("Comments")
+                        .HasForeignKey("ChapterId");
+
                     b.HasOne("Eat.Models.Story", "Story")
                         .WithMany("Comments")
                         .HasForeignKey("StoryId")
@@ -343,7 +504,9 @@ namespace Eat.Migrations
 
                     b.HasOne("Eat.Models.AppUser", "User")
                         .WithMany("Comments")
-                        .HasForeignKey("UserId1");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Story");
 
@@ -352,11 +515,57 @@ namespace Eat.Migrations
 
             modelBuilder.Entity("Eat.Models.Story", b =>
                 {
+                    b.HasOne("Eat.Models.Category", "Category")
+                        .WithMany("Stories")
+                        .HasForeignKey("CategoryId");
+
                     b.HasOne("Eat.Models.AppUser", "User")
                         .WithMany("Stories")
-                        .HasForeignKey("UserId1");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Eat.Models.StoryVote", b =>
+                {
+                    b.HasOne("Eat.Models.Story", "Story")
+                        .WithMany()
+                        .HasForeignKey("StoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Eat.Models.AppUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Story");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Eat.Models.UserFollow", b =>
+                {
+                    b.HasOne("Eat.Models.AppUser", "Follower")
+                        .WithMany()
+                        .HasForeignKey("FollowerId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Eat.Models.AppUser", "Following")
+                        .WithMany()
+                        .HasForeignKey("FollowingId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Follower");
+
+                    b.Navigation("Following");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -415,6 +624,18 @@ namespace Eat.Migrations
                     b.Navigation("Comments");
 
                     b.Navigation("Stories");
+                });
+
+            modelBuilder.Entity("Eat.Models.Category", b =>
+                {
+                    b.Navigation("Stories");
+                });
+
+            modelBuilder.Entity("Eat.Models.Chapter", b =>
+                {
+                    b.Navigation("Comments");
+
+                    b.Navigation("Votes");
                 });
 
             modelBuilder.Entity("Eat.Models.Story", b =>

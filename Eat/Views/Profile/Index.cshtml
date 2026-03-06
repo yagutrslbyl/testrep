@@ -1,0 +1,226 @@
+﻿@using Eat.ViewModels.ProfileVMs
+@model ProfileVM
+<main class="prf-main-container">
+
+    <!-- HEADER - Kapak + Profil bilgileri -->
+    <div class="prf-header-wrapper">
+        <div class="prf-cover-full">
+            <img src="~/uploads/covers/@Model.User.CoverImageUrl"
+                 class="prf-cover-image" />
+        </div>
+
+        <div class="prf-profile-center-layer">
+            <div class="prf-avatar-frame">
+                <img src="@(Model.User.ProfileImageUrl != null
+                         ? "/uploads/profiles/" + Model.User.ProfileImageUrl
+                         : "/images/default-avatar.png")" />
+            </div>
+
+            <h1 class="prf-display-name">@Model.User.UserName</h1>
+
+            <div class="prf-stats-line">
+                <span>
+                    @if (Model.CurrentUserId == Model.User.Id)
+                    {
+                        @((Model.PublishedStories?.Count ?? 0) + (Model.DraftStories?.Count ?? 0)) <text>Works</text>
+                    }
+                    else
+                    {
+                        @(Model.PublishedStories?.Count ?? 0) <text> Works</text>
+                    }
+                </span>
+                <span>・</span>
+               
+                @* <span>@Model.Followers.Count Followers</span> *@
+                <span>@(Model.Followers?.Count ?? 0) Followers</span>
+            </div>
+
+            <div class="prf-action-buttons">
+
+                @if (Model.CurrentUserId == Model.User.Id)
+                {
+                    <a asp-controller="profile" asp-action="Update" class="prf-btn prf-follow">
+                        Edit Profile
+                    </a>
+                }
+                else
+                {
+                    bool isFollowing = Model.Followers
+                    .Any(f => f.FollowerId == Model.CurrentUserId);
+
+                    <form asp-action="Follow" method="post">
+                        <input type="hidden" name="userId" value="@Model.User.Id" />
+
+                        @if (isFollowing)
+                        {
+                            <button type="submit" class="prf-btn prf-follow">Unfollow</button>
+                        }
+                        else
+                        {
+                            <button type="submit" class="prf-btn prf-follow">Follow</button>
+                        }
+                    </form>
+                }
+
+            </div>
+        </div>
+    </div>
+
+    <!-- TABS -->
+    <nav class="prf-tabs-bar">
+        <button class="prf-tab prf-tab-active">About</button>
+        <button class="prf-tab">Conversations</button>
+        <button class="prf-tab">Following</button>
+    </nav>
+
+    <!-- ABOUT SECTION -->
+    <section class="prf-section about-section">
+
+        <div class="prf-two-columns">
+
+            <!-- Sol sütun -->
+            <aside class="prf-left-sidebar">
+
+                <div class="prf-info-card">
+                    <h3>About</h3>
+                    <div class="prf-bio-content">
+                        @{
+                            var bio = string.IsNullOrEmpty(Model.User.Bio)
+                            ? "Merhaba! Ben StoryVerce kullanıyorum!"
+                            : Model.User.Bio;
+
+                            var formattedBio = bio.Replace("\n", "<br>");
+                        }
+
+                        @Html.Raw(formattedBio)
+
+                        <br /><br />
+                      
+                    </div>
+                </div>
+
+                <div class="prf-info-card">
+                    <h3>Following</h3>
+                    <div class="prf-following-avatars">
+
+                        @if (Model.Followers != null && Model.Followers.Any())
+                        {
+                            @foreach (var follow in Model.Followers.Take(5))
+                            {
+                                var follower = follow.Follower;
+
+                                <a asp-controller="Profile"
+                                   asp-action="Index"
+                                   asp-route-id="@follower.Id">
+
+                                    <img src="@(string.IsNullOrEmpty(follower.ProfileImageUrl)
+                                                     ? "/images/default-avatar.png"
+                                                     : "/uploads/profiles/" + follower.ProfileImageUrl)"
+                                 alt="@follower.UserName" />
+
+                                </a>
+                                                }
+
+                            if (Model.Followers.Count > 5)
+                            {
+                                <span class="prf-more-indicator">
+                                    +@(Model.Followers.Count - 5)
+                                </span>
+                            }
+                        }
+                        else
+                        {
+                            <span>No followers yet</span>
+                        }
+
+                    </div>
+                </div>
+
+            </aside>
+
+            <!-- Sağ sütun - Hikayeler -->
+            <div class="prf-main-content">
+
+                <div class="prf-stories-heading">
+                    <h2>Stories by @Model.User.UserName</h2>
+                    @if (Model.CurrentUserId == Model.User.Id)
+                    {
+                        <span class="prf-draft-info">
+                            @Model.PublishedStories.Count Published •
+                            @Model.DraftStories.Count Drafts (only visible to you)
+                        </span>
+                    }
+                    else
+                    {
+                        <span class="prf-draft-info">
+                            @Model.PublishedStories.Count Published
+                        </span>
+                    }
+
+                </div>
+                @foreach (var story in Model.PublishedStories ?? new List<Story>())
+                {
+                    <article class="prf-story-item">
+                        <div class="prf-cover-small">
+                            <img src="@(!string.IsNullOrEmpty(story.CoverImageUrl)
+                                                          ? "/uploads/stories/" + story.CoverImageUrl
+                                                          : "/images/default-cover.jpg")"
+                             alt="@story.Title" />
+                    </div>
+                    <div class="prf-story-details">
+                        
+                        <a asp-controller="story" asp-action="ReaderDetails" asp-route-id="@story.Id" style="text-decoration:none; color:inherit;">@(story.Title ?? "Untitled") | @Model.User?.UserName</a>
+                        <div class="prf-stats-small">
+                            <span>@story.Views</span> •
+                            <span>@story.Votes</span> •
+                            <span>@(story.Comments?.Count ?? 0) comments</span>
+                        </div>
+                        <p>@(story.Description ?? "")</p>
+                        <div class="prf-tags-line">
+                            @if (!string.IsNullOrEmpty(story.Tags))
+                                {
+                                    foreach (var tag in story.Tags.Split(','))
+                                    {
+                                        <span class="prf-rank-tag">#@tag.Trim()</span>
+                                    }
+                                }
+                            </div>
+                            <span class="prf-published-badge">@((story.IsPublished) ? "PUBLISHED" : "DRAFT")</span>
+                        </div>
+                    </article>
+                }
+                
+                    @foreach (var draft in Model.DraftStories ?? new List<Story>())
+                    {
+                        <article class="prf-story-item">
+                            <div class="prf-cover-small">
+                                <img src="@(!string.IsNullOrEmpty(draft.CoverImageUrl)
+                                                                 ? "/uploads/covers/" + draft.CoverImageUrl
+                                                                 : "/images/default-cover.jpg")" />
+                    </div>
+                    <div class="prf-story-details">
+                        <h3>@draft.Title | @Model.User.UserName</h3>
+                        <span class="prf-published-badge">DRAFT</span>
+                    </div>
+                </article>
+                                }
+                
+                
+               
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Diğer sekmeler için placeholder (şimdilik gizli) -->
+    <section class="prf-section conversations-section" style="display:none;">
+        <h2>Conversations</h2>
+        <p>(Burada mesajlaşma geçmişi görünecek)</p>
+    </section>
+
+    <section class="prf-section following-section" style="display:none;">
+        <h2>Following</h2>
+        <p>(Takip edilen kullanıcılar listesi)</p>
+    </section>
+
+</main>

@@ -4,6 +4,7 @@
   padding: 0 var(--spacing-md);
 }
 
+
 /* HEADER */
 .header {
   background-color: var(--color-light);
@@ -40,3 +41,34 @@
   align-items: center;
   gap: 60px;
 }
+.header__right .btn-login,
+.header__right .btn-register {
+    padding: 10px 22px;
+    border-radius: 25px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    margin-left: 10px;
+    display: inline-block;
+}
+
+.header__right .btn-login {
+    color: #ff6b00;
+    border: 2px solid #ff6b00;
+    background-color: transparent;
+}
+
+    .header__right .btn-login:hover {
+        background-color: #ff6b00;
+        color: white;
+    }
+
+.header__right .btn-register {
+    background: linear-gradient(135deg, #ff6b00, #ff8c42);
+    color: white;
+    border: none;
+}
+
+    .header__right .btn-register:hover {
+        transform: translateY(-2px);
+    }

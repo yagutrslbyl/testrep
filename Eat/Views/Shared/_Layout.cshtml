@@ -1,4 +1,13 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+@using Eat.Models
+
+@inject UserManager<AppUser> UserManager
+
+@{
+    var user = await UserManager.GetUserAsync(User);
+}
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
@@ -6,20 +15,48 @@
     <title>Wattpad | Home</title>
 
     <link rel="stylesheet" href="~/css/chapter-read.css">
+    <link rel="stylesheet" href="~/css/notification.css" asp-append-version="true">
+
+    <link rel="stylesheet" href="~/css/read-chapter.css" asp-append-version="true">
+
+    <link rel="stylesheet" href="~/css/read-story.css" asp-append-version="true">
+
     <link rel="stylesheet" href="~/css/components.css">
     <link rel="stylesheet" href="~/css/create-story.css">
     <link rel="stylesheet" href="~/css/home.css">
-    <link rel="stylesheet" href="~/css/layout.css">
-    <link rel="stylesheet" href="~/css/main.css">
-    <link rel="stylesheet" href="~/css/mystories.css">
-    <link rel="stylesheet" href="~/css/profile.css">
+    <link rel="stylesheet" href="~/css/main.css" asp-append-version="true">
+    <link rel="stylesheet"
+          href="~/css/mystories.css"
+          asp-append-version="true" />
+    
+    <link rel="stylesheet" href="~/css/profile.css" asp-append-version="true">
     <link rel="stylesheet" href="~/css/reset.css">
-    <link rel="stylesheet" href="~/css/search.css">
+    <link rel="stylesheet" href="~/css/search.css" asp-append-version="true">
     <link rel="stylesheet" href="~/css/story-dashboard.css">
     <link rel="stylesheet" href="~/css/story-detail.css">
     <link rel="stylesheet" href="~/css/variables.css">
-    <link rel="stylesheet" href="~/css/write-story.css">
+    <link rel="stylesheet" href="~/css/write-story.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/css/layout.css">
 
+    <style>
+        .profile {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #ff6b6b;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            font-weight: bold;
+        }
+
+        .profile-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }</style>
 
 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -31,7 +68,7 @@
 
             <!-- LEFT -->
             <div class="header__left">
-                <div class="logo">StoryVerse</div>
+                <a asp-controller="Home" asp-action="Index" class="logo">StoryVerse</a>
 
                 <nav class="nav">
                     <a href="#">Browse</a>
@@ -42,47 +79,120 @@
 
             <!-- SEARCH -->
             <div class="header__search">
-                <form action="search.html" method="GET">
-                    <input type="text" name="q" placeholder="Search stories, writers..." />
-                </form>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <form asp-controller="Search" asp-action="Results" method="get">
+                        <input type="text" name="query" placeholder="Search stories, writers..." />
+                    </form>
+                }
             </div>
 
             <!-- RIGHT -->
+
             <div class="header__right">
 
-                <!-- Write -->
-                <div class="write-wrapper">
-                    <button class="write-btn">Write ▾</button>
-                    <div class="write-dropdown">
-                        <a href="create-story.html">➕ Create a new story</a>
-                        <a href="mystories.html">My Stories</a>
-                        <hr>
-                        <a href="#">Writer Resources</a>
-                        <a href="#">Writing Contests</a>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <!-- Write -->
+                    <div class="write-wrapper">
+                        <button class="write-btn">Write ▾</button>
+                        <div class="write-dropdown">
+                            <a asp-controller="Story" asp-action="Create">➕ Create a new story</a>
+                            <a asp-controller="Story" asp-action="MyStories">My Stories</a>
+                            <hr>
+                            <a href="#">Writer Resources</a>
+                            <a href="#">Writing Contests</a>
+                        </div>
                     </div>
-                </div>
 
-                <!-- Notification -->
-                <div class="notification">
-                    🔔
-                    <span class="badge">3</span>
-                </div>
+                    <!-- Notification -->
+                    <a asp-controller="Notification" asp-action="Index" class="notification">
+                        🔔
+                        @* <span class="badge">@ViewBag.NotificationCount</span> *@
+                    </a>
 
+                    <!-- Profile -->
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        var username = user?.UserName ?? "U";
+                        var firstLetter = username.Substring(0, 1).ToUpper();
 
-                <!-- Profile -->
-                <div class="profile-wrapper">
-                    <div class="profile">Q</div>
-                    <div class="dropdown">
-                        <a href="profile.html">My Profile</a>
-                        <a href="#">Inbox</a>
-                        <a href="#">Library</a>
-                        <hr>
-                        <a href="#">Settings</a>
-                        <a href="#">Log Out</a>
-                    </div>
-                </div>
+                        <div class="profile-wrapper">
+
+                            <div class="profile">
+
+                                @if (!string.IsNullOrEmpty(user?.ProfileImageUrl))
+                                {
+                                    <img src="~/uploads/profiles/@user.ProfileImageUrl" class="profile-img" />
+                                }
+                                else
+                                {
+                                    <span>@firstLetter</span>
+                                }
+
+                            </div>
+
+                            <div class="dropdown">
+                                <a asp-controller="Profile" asp-action="Index">My Profile</a>
+                                <a asp-controller="Account" asp-action="Logout">Log Out</a>
+                            </div>
+
+                        </div>
+                    }
+
+                    @* <div class="profile-wrapper">
+                        <div class="profile">
+                            @User.Identity.Name.Substring(0, 1)
+                        </div>
+                        <div class="dropdown">
+                            <a asp-controller="profile" asp-action="Index">My Profile</a>
+                            <a asp-controller="Account" asp-action="Logout">Log Out</a>
+                        </div>
+                    </div> *@
+                }
+                else
+                {
+                    <a asp-controller="Account"
+                       asp-action="Login"
+                       style="
+            padding:10px 22px;
+            border-radius:25px;
+            font-weight:600;
+            text-decoration:none;
+            margin-left:10px;
+            display:inline-block;
+            color:#ff6b00;
+            border:2px solid #ff6b00;
+            background-color:transparent;
+            transition:0.3s;
+       "
+                       onmouseover="this.style.backgroundColor='#ff6b00';this.style.color='white';"
+                       onmouseout="this.style.backgroundColor='transparent';this.style.color='#ff6b00';">
+                        Login
+                    </a>
+                    <a asp-controller="Account"
+                       asp-action="Register"
+                       style="
+            padding:10px 22px;
+            border-radius:25px;
+            font-weight:600;
+            text-decoration:none;
+            margin-left:10px;
+            display:inline-block;
+            color:white;
+            background:linear-gradient(135deg,#ff6b00,#ff8c42);
+            border:none;
+            transition:0.3s;
+       "
+                       onmouseover="this.style.transform='translateY(-2px)';"
+                       onmouseout="this.style.transform='translateY(0px)';">
+                        Register
+                    </a>
+                }
 
             </div>
+
+           
         </div>
     </header>
     <main class="container">

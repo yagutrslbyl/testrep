@@ -1,0 +1,254 @@
+﻿@model ReaderChapterVM
+<link rel="stylesheet" href="stylee.css">
+<section class="story-topbar">
+
+    <div class="topbar-left">
+        <img src="~/uploads/stories/@Model.CoverImage" class="mini-cover">
+      
+
+        <div class="story-info">
+            <h4>@Model.StoryTitle</h4>
+            <span>
+                by
+                <a asp-controller="Profile" asp-action="Index" asp-route-id="@Model.AuthorId">
+                    @Model.AuthorName
+                </a>
+            </span>
+        </div>
+    </div>
+    
+    <div class="topbar-right">
+        <button id="voteBtn" class="vote-btn" data-story="@Model.StoryId">
+        Vote    ⭐ <span id="score">@Model.Score</span>
+        </button>
+    </div>
+
+</section>
+
+<main class="chapter-page container">
+
+    <!-- SOL HİSSƏ -->
+    <article class="chapter-content">
+
+        <div class="chapter-card">
+
+      
+            <h1>@Model.Title</h1>
+
+            <div class="chapter-stats">
+                <span>👁 @Model.Views</span>
+                <span>⭐ @Model.Score</span>
+                <span>💬 @Model.Comments.Count</span>
+            </div>
+
+            <div class="chapter-author">
+                <img src="~/uploads/profiles/@Model.AuthorProfileImage">
+                <span>
+                    by
+                    <a asp-controller="Profile" asp-action="Index" asp-route-id="@Model.AuthorId">
+                        @Model.AuthorName
+                    </a>
+                </span>
+            </div>
+
+            <hr>
+            <div class="chapter-text">
+                @Html.Raw(Model.Content)
+            </div>
+            @* <div class="chapter-text">
+                <p>Herkese selamlar. Bölüm yaklaşık 4k kelime içermektedir.</p>
+                <p>(NOT: Bu bölümde bahsi geçen karakter farklıdır.)</p>
+                <p>~~~~~</p>
+                <p><strong>(2. KARAÇAĞ DÖNEMİ - 345. YILI)</strong></p>
+                <p>Bir zamanlar gökyüzü bile karanlığa teslim olmuştu...</p>
+                <p>Alisa denen kız ormandan çıkıp köye geldiğinde...</p>
+            </div> *@
+
+            <!-- NAVIGATION BURADA VƏ YALNIZ BURADA -->
+            @* <div class="chapter-navigation">
+                <button class="nav-btn">← Əvvəlki</button>
+                <button class="nav-btn primary">Sonrakı →</button>
+            </div> *@
+            <div class="chapter-navigation">
+
+                @if (Model.PreviousChapterId != null)
+                {
+                    <a asp-action="ReadChapter"
+                       asp-route-id="@Model.PreviousChapterId"
+                       class="nav-btn">
+                        ← Əvvəlki
+                    </a>
+                }
+
+                @if (Model.NextChapterId != null)
+                {
+                    <a asp-action="ReadChapter"
+                       asp-route-id="@Model.NextChapterId"
+                       class="nav-btn primary">
+                        Sonrakı →
+                    </a>
+                }
+
+            </div>
+
+        </div>
+
+    </article>
+
+    <!-- SAĞ HİSSƏ -->
+    <aside class="chapter-sidebar">
+        <div class="sidebar-card">
+            <h3>Sənə də xoş gələ bilər</h3>
+
+            @foreach (var story in Model.RelatedStories)
+            {
+                <div class="recommend-card">
+
+                    <img src="@(string.IsNullOrEmpty(story.CoverImageUrl)
+                                     ? "/images/default-cover.jpg"
+                                     : "/uploads/stories/" + story.CoverImageUrl)">
+
+                <div>
+                    <h4>
+                        <a asp-controller="Story"
+                           asp-action="ReaderDetails"
+                           asp-route-id="@story.Id">
+                            @story.Title
+                        </a>
+                    </h4>
+
+                        <span>👁 @story.Views ⭐ @story.Votes</span>
+                    </div>
+
+                </div>
+                        }
+
+        </div>
+    </aside>
+
+</main>
+<!-- RCM COMMENT MODAL START -->
+<div class="rcm-modal" id="rcmModal">
+    <div class="rcm-box">
+        <div class="rcm-header">
+            <span>Şərhlər</span>
+            <button class="rcm-close" id="rcmClose">&times;</button>
+        </div>
+
+        <div class="rcm-body">
+            <div class="rcm-list" id="rcmList">
+                @foreach (var comment in Model.Comments)
+                {
+                    <div class="rcm-item">
+                        <strong>@comment.UserName</strong>
+                        <p>@comment.Content</p>
+                    </div>
+                }
+            </div>
+
+            <form class="rcm-form" id="rcmForm" data-story="@Model.StoryId">
+                <textarea id="rcmInput"
+                          placeholder="Fikirlərini yaz..."
+                          required></textarea>
+                <button type="submit" class="rcm-send">
+                    Göndər
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const rcmModal = document.getElementById("rcmModal");
+        const rcmClose = document.getElementById("rcmClose");
+        const rcmForm = document.getElementById("rcmForm");
+        const rcmInput = document.getElementById("rcmInput");
+        const rcmList = document.getElementById("rcmList");
+        const voteBtn = document.getElementById("voteBtn");
+        const chapterText = document.querySelector(".chapter-text");
+
+        // -------- Chapter text paragraph split --------
+        if (chapterText && chapterText.querySelectorAll("p").length === 0) {
+            const lines = chapterText.innerHTML.split("<br><br>");
+            chapterText.innerHTML = "";
+            lines.forEach(line => {
+                const p = document.createElement("p");
+                p.innerHTML = line;
+                chapterText.appendChild(p);
+            });
+        }
+
+        // -------- Comment icon for each paragraph --------
+        document.querySelectorAll(".chapter-text p").forEach(p => {
+            const icon = document.createElement("span");
+            icon.className = "rcm-comment-icon";
+            icon.innerHTML = "💬";
+            p.appendChild(icon);
+
+            icon.addEventListener("click", function (e) {
+                e.stopPropagation();
+                rcmModal.classList.add("rcm-active");
+            });
+        });
+
+        // -------- Close modal --------
+        rcmClose.addEventListener("click", () => rcmModal.classList.remove("rcm-active"));
+        rcmModal.addEventListener("click", (e) => { if(e.target === rcmModal) rcmModal.classList.remove("rcm-active"); });
+
+        // -------- Vote button --------
+            document.getElementById("voteBtn").addEventListener("click", function () {
+
+        const btn = this;
+        const storyId = btn.dataset.story;
+
+        fetch("/Story/Vote", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body: `storyId=${storyId}&isUpvote=true`
+        })
+        .then(res => res.json())
+        .then(data => {
+
+            if (data.success) {
+
+                document.getElementById("score").innerText = data.score;
+
+            }
+
+        });
+    });
+
+        // -------- Comment submit --------
+        rcmForm.addEventListener("submit", async function(e) {
+            e.preventDefault();
+            const content = rcmInput.value.trim();
+            if(!content) return;
+
+            const storyId = rcmForm.dataset.story;
+            const token = document.querySelector('input[name="__RequestVerificationToken"]')?.value;
+
+            const response = await fetch("/Story/AddComment", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "RequestVerificationToken": token
+                },
+                body: JSON.stringify({ storyId, content })
+            });
+
+            if(response.ok) {
+                const data = await response.json();
+                const div = document.createElement("div");
+                div.className = "rcm-item";
+                div.innerHTML = `<strong>${data.userName}</strong><p>${data.content}</p>`;
+                rcmList.appendChild(div);
+                rcmInput.value = "";
+                rcmList.scrollTop = rcmList.scrollHeight;
+            } else {
+                alert("Comment əlavə olunmadı!");
+            }
+        });
+    });
+</script>

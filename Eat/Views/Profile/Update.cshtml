@@ -1,0 +1,379 @@
+﻿@model Eat.ViewModels.ProfileVMs.ProfileUpdateVM
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Edit Profile - @Model.UserName</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #f0f2f5;
+            color: #111;
+            line-height: 1.5;
+        }
+
+        .edit-container {
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Üst bar - Save & Cancel */
+        .edit-header-bar {
+            position: sticky;
+            top: 0;
+            background: white;
+            border-bottom: 1px solid #ddd;
+            padding: 12px 20px;
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+            z-index: 100;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .edit-btn {
+            padding: 10px 24px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s;
+        }
+
+        .btn-save {
+            background: #ff575d;
+            color: white;
+        }
+
+            .btn-save:hover {
+                background: #ff4046;
+            }
+
+        .btn-cancel {
+            background: #e4e6eb;
+            color: #111;
+        }
+
+            .btn-cancel:hover {
+                background: #d8dade;
+            }
+
+        /* Başlık */
+        .edit-title {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin: 20px 0 30px;
+            text-align: center;
+            color: #222;
+        }
+
+        /* Kapak + Avatar alanı */
+        .edit-cover-wrapper {
+            position: relative;
+            height: 380px;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 140px;
+            background: #e0e0e0;
+        }
+
+        .edit-cover-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .edit-cover-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.6) 70%, rgba(0,0,0,0.85) 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+        }
+
+        .edit-avatar-container {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .edit-avatar-main {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            border: 6px solid rgba(255,255,255,0.95);
+            object-fit: cover;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+            background: #ddd;
+        }
+
+        .edit-change-avatar-btn,
+        .edit-change-cover-btn {
+            position: absolute;
+            background: rgba(0,0,0,0.6);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background 0.2s;
+            font-size: 1.4rem;
+        }
+
+        .edit-change-avatar-btn {
+            bottom: 8px;
+            right: 8px;
+        }
+
+            .edit-change-avatar-btn:hover {
+                background: rgba(0,0,0,0.8);
+            }
+
+        .edit-change-cover-btn {
+            top: 20px;
+            right: 20px;
+            border-radius: 8px;
+            padding: 0 16px;
+            width: auto;
+            height: 40px;
+            font-size: 1rem;
+        }
+
+            .edit-change-cover-btn:hover {
+                background: rgba(0,0,0,0.8);
+            }
+
+        .edit-username {
+            font-size: 2.4rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+        }
+
+        .edit-stats {
+            display: flex;
+            gap: 32px;
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        /* Form alanları */
+        .edit-form {
+            background: white;
+            border-radius: 12px;
+            padding: 32px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            margin-bottom: 40px;
+        }
+
+        .form-group {
+            margin-bottom: 28px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 1.05rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        input[type="text"],
+        textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 1.05rem;
+            background: #fafafa;
+            transition: border 0.2s;
+        }
+
+            input[type="text"]:focus,
+            textarea:focus {
+                outline: none;
+                border-color: #ff575d;
+                background: white;
+            }
+
+        textarea {
+            min-height: 160px;
+            resize: vertical;
+        }
+
+        .char-count {
+            text-align: right;
+            font-size: 0.9rem;
+            color: #777;
+            margin-top: 6px;
+        }
+
+        select {
+            padding: 12px 16px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 1.05rem;
+            background: #fafafa;
+            width: 100%;
+            max-width: 300px;
+        }
+
+        /* Güvenlik uyarısı */
+        .edit-safety-notice {
+            background: #fff8e1;
+            border: 1px solid #ffe082;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 30px 0;
+            font-size: 0.98rem;
+            color: #5d4037;
+        }
+
+            .edit-safety-notice a {
+                color: #d32f2f;
+                text-decoration: underline;
+            }
+
+        @@media (max-width: 768px) {
+            .edit-cover-wrapper
+
+        {
+            height: 300px;
+            margin-bottom: 120px;
+        }
+
+        .edit-avatar-main {
+            width: 140px;
+            height: 140px;
+        }
+
+        .edit-username {
+            font-size: 2.1rem;
+        }
+
+        .edit-stats {
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        }
+    </style>
+</head>
+<body>
+    <form asp-action="Update" method="post" enctype="multipart/form-data">
+    <div class="edit-container">
+
+        <div class="edit-header-bar">
+           
+                <a asp-action="Index" asp-route-id="@User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value"
+                   class="edit-btn btn-cancel">Cancel</a>
+
+                <button type="submit" class="edit-btn btn-save">
+                    Save Changes
+                </button>
+        </div>
+
+        <h1 class="edit-title">Currently editing your profile</h1>
+
+        <!-- Kapak + Profil resmi bölümü -->
+        <div class="edit-cover-wrapper">
+                <img src="@(Model.ExistingCoverImage != null
+                         ? "/uploads/covers/" + Model.ExistingCoverImage
+                         : "/images/default-cover.jpg")"
+                     class="edit-cover-image" />
+               
+            <div class="edit-cover-overlay">
+                <div class="edit-avatar-container">
+                        <img src="@(Model.ExistingProfileImage != null
+                                 ? "/uploads/profiles/" + Model.ExistingProfileImage
+                                 : "/images/default-avatar.png")"
+                             class="edit-avatar-main" />
+                        <input type="file" asp-for="ProfileImage" hidden id="avatarInput" />
+
+                        <button type="button" class="edit-change-avatar-btn"
+                                onclick="document.getElementById('avatarInput').click()">
+                            <i class="fa-solid fa-camera"></i>
+                        </button>
+                    
+                </div>
+                    <input type="file" asp-for="CoverImage" hidden id="coverInput" />
+                    <button type="button" class="edit-change-cover-btn"
+                            onclick="document.getElementById('coverInput').click()">
+                        <i class="fa-solid fa-camera"></i> Change Background Image
+                    </button>
+
+                    <h2 class="edit-username">@Model.UserName</h2>
+
+                <div class="edit-stats">
+                    <span>9 Works</span>
+                    <span>・</span>
+                    <span>4 Reading Lists</span>
+                    <span>・</span>
+                    <span>479 Followers</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Form alanları -->
+        <div class="edit-form">
+
+            <div class="form-group">
+                <label asp-for="FullName" class="form-label">Full name</label>
+                <input asp-for="FullName" type="text" placeholder="Full name" value="">
+            </div>
+
+            <!-- Username genelde değiştirilemez ama göstermek için -->
+            <div class="form-group">
+                <label asp-for="UserName" class="form-label">Username</label>
+                    <input asp-for="UserName" type="text" value="@Model.UserName" readonly class="form-control">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Pronouns</label>
+                    <select asp-for="Pronoun">
+                        <option value="">Select pronouns</option>
+                        <option value="she/her">she/her</option>
+                        <option value="he/him">he/him</option>
+                        <option value="they/them">they/them</option>
+                        <option value="Custom">Custom</option>
+                    </select>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">About</label>
+                    <textarea asp-for="Bio" maxlength="2000"></textarea>
+                <div class="char-count">2000</div>
+            </div>
+
+        </div>
+
+        <!-- Güvenlik bildirimi -->
+        <div class="edit-safety-notice">
+            The information you enter here, including username, profile photo, and
+            background image, will be visible to other users. Learn about safe information
+            sharing <a href="#">here</a>.
+        </div>
+
+    </div>
+    </form>
+</body>
+</html>

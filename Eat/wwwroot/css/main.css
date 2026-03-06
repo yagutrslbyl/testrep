@@ -1,3 +1,137 @@
+﻿/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #ffffff;
+    color: #000000;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    min-height: 100vh;
+}
+
+main {
+    padding: 16px;
+}
+
+.section-title {
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin: 24px 0 8px;
+    color: #000;
+}
+
+.subsection-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin: 0 0 16px;
+    color: #222;
+}
+
+/* Carousel */
+.carousel-wrapper {
+    position: relative;
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    margin-bottom: 40px;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+}
+
+.carousel-track {
+    display: flex;
+    gap: 12px;
+    scroll-snap-type: x mandatory;
+}
+
+/* Book card smaller and multiple per view */
+.book-card {
+    flex: 0 0 200px; /* Kitab genişliyi daha kiçik */
+    max-width: 220px;
+    background: #f8f8f8;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+    transition: transform 0.25s ease;
+    scroll-snap-align: start; /* Soldan başlayacaq */
+}
+
+    .book-card:active {
+        transform: scale(0.97);
+    }
+
+    .book-card img {
+        width: 100%;
+        height: 280px;
+        object-fit: cover;
+        background: #eee;
+        display: block;
+    }
+
+.book-info {
+    padding: 10px 12px;
+    background: #fff;
+}
+
+.book-title {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 4px;
+    color: #000;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.book-tags {
+    font-size: 0.85rem;
+    color: #555;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Kenarlarda boşluq */
+.carousel-track::before,
+.carousel-track::after {
+    content: "";
+    flex: 0 0 12px;
+}
+
+/* Responsive: mobil üçün */
+@media (max-width: 768px) {
+    .book-card {
+        flex: 0 0 150px;
+        max-width: 160px;
+    }
+
+        .book-card img {
+            height: 210px;
+        }
+
+    .book-title {
+        font-size: 0.95rem;
+    }
+
+    .book-tags {
+        font-size: 0.8rem;
+    }
+}
+
+/* Scrollbar gizlətmək üçün */
+.carousel-wrapper::-webkit-scrollbar {
+    display: none;
+}
+
+.carousel-wrapper {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+
 /* MAIN BASE */
 main {
     overflow: hidden;
@@ -221,19 +355,19 @@ body {
     height: auto; /* sabit height silinir */
     aspect-ratio: 2 / 3; /* real kitab nisb?ti */
     border-radius: 16px;
-    overflow: visible; /* continue text ���n */
+    overflow: visible; /* continue text üçün */
     flex-shrink: 0;
     background: transparent;
     box-shadow: none;
     transition: 0.3s ease;
 }
 
-    /* IMAGE SAB?T �L�� */
+    /* IMAGE SAB?T ÖLÇÜ */
     .story-card img {
         width: 100%;
         height: 100%;
         aspect-ratio: 2 / 3;
-        object-fit: cover; /* ??kil d?yi?s? d? �l�� d?yi?m?z */
+        object-fit: cover; /* ??kil d?yi?s? d? ölçü d?yi?m?z */
         border-radius: 16px;
         display: block;
         box-shadow: 0 10px 25px rgba(0,0,0,0.15);
@@ -265,7 +399,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    z-index: 2; /* BU �OK �NEML? */
+    z-index: 2; /* BU ÇOK ÖNEML? */
 }
 
 /* TAG */

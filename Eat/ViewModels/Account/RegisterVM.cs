@@ -4,7 +4,8 @@ namespace Eat.ViewModels.Account
 {
     public class RegisterVM
     {
-        [Required(ErrorMessage ="Name is required")]
+        [Required(ErrorMessage = "Name is required")]
+
         public string Name { get; set; }
         [Required(ErrorMessage = "Surname is required")]
 

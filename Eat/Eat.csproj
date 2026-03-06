@@ -8,6 +8,9 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\admin\" />
+    <Folder Include="wwwroot\uploads\covers\" />
+    <Folder Include="wwwroot\uploads\profiles\" />
+    <Folder Include="wwwroot\uploads\stories\" />
   </ItemGroup>
 
   <ItemGroup>

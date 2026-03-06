@@ -44,7 +44,11 @@ namespace Eat.Controllers
 
             if (!result.Succeeded)
             {
-                ModelState.AddModelError("", "Username is wrong");
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError("", error.Description);
+                }
+
                 return View(vm);
             }
 
@@ -93,16 +97,22 @@ namespace Eat.Controllers
 
         }
 
-        public async Task<IActionResult> SeedRoles()
-        {
-            var roles = Enum.GetNames(typeof(Roles));
-            foreach(var role in roles)
-            {
-                await _roleManager.CreateAsync(new IdentityRole(role));
-                
-            }
-            return Content("Rollar yaradildi");
+        //public async Task<IActionResult> SeedRoles()
+        //{
+        //    var roles = Enum.GetNames(typeof(Roles));
+        //    foreach(var role in roles)
+        //    {
+        //        await _roleManager.CreateAsync(new IdentityRole(role));
 
+        //    }
+        //    return Content("Rollar yaradildi");
+
+        //}
+
+        public async Task<IActionResult> Logout()
+        {
+            await _singInManager.SignOutAsync();
+            return RedirectToAction("Index", "Home");
         }
     }
 }

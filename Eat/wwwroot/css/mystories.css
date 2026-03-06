@@ -1,186 +1,306 @@
-body {
-  font-family: 'Inter', sans-serif;
-  background: #f9fafb;
+﻿/* mystories-safe.css - 2025/2026 style, MVC layout ile conflict minimum */
+
+.myst-main-container {
+    max-width: 1280px;
+    margin: 40px auto;
+    padding: 0 40px;
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    gap: 40px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    color: #111111;
 }
 
-/* HEADER SPACING */
-.mystories {
-  margin-top: 40px;
+.myst-page-header {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
 }
 
-/* PAGE HEADER */
-.page-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 40px;
+    .myst-page-header h1 {
+        font-size: 2.5rem;
+        font-weight: 800;
+        margin: 0;
+        color: #111;
+    }
+
+.myst-header-stats {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    font-size: 1.1rem;
+    color: #666;
 }
 
-.page-header h1 {
-  font-size: 2.2rem;
-  font-weight: 800;
+.myst-new-story-btn {
+    background: #ff5a00;
+    color: white;
+    border: none;
+    padding: 12px 26px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 1.05rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: all 0.25s;
 }
 
-/* STATS */
-.stats {
-  display: flex;
-  gap: 24px;
-  margin-bottom: 40px;
+    .myst-new-story-btn:hover {
+        background: #e64a00;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(255,90,0,0.3);
+    }
+
+/* ── Tabs ───────────────────────────────────────────── */
+.myst-tabs {
+    grid-column: 1 / -1;
+    display: flex;
+    border-bottom: 3px solid #e0e0e0;
+    margin-bottom: 32px;
 }
 
-.stat-card {
-  background: white;
-  padding: 24px;
-  border-radius: 14px;
-  flex: 1;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.05);
-  text-align: center;
-  transition: 0.3s ease;
+.myst-tab {
+    padding: 14px 34px;
+    background: none;
+    border: none;
+    font-size: 1.12rem;
+    font-weight: 600;
+    color: #666;
+    cursor: pointer;
+    position: relative;
+    transition: color 0.2s;
 }
 
-.stat-card:hover {
-  transform: translateY(-5px);
+    .myst-tab:hover {
+        color: #222;
+    }
+
+    .myst-tab.myst-active {
+        color: #ff5a00;
+    }
+
+        .myst-tab.myst-active::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: #ff5a00;
+            border-radius: 3px 3px 0 0;
+        }
+
+/* ── Story Card ─────────────────────────────────────── */
+.myst-stories-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
 }
 
-.stat-card h3 {
-  font-size: 1.8rem;
-  color: #ff5000;
-  margin-bottom: 6px;
+.myst-story-card {
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 6px 22px rgba(0,0,0,0.09);
+    transition: all 0.28s ease;
 }
 
-/* TABS */
-.tabs {
-  display: flex;
-  gap: 32px;
-  margin-bottom: 30px;
-  border-bottom: 1px solid #e5e7eb;
+    .myst-story-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 14px 38px rgba(0,0,0,0.13);
+    }
+
+.myst-card-left {
+    display: flex;
+    gap: 32px;
+    padding: 32px;
 }
 
-.tabs button {
-  background: none;
-  border: none;
-  font-weight: 600;
-  padding: 12px 0;
-  cursor: pointer;
-  position: relative;
-  color: #6b7280;
+.myst-cover-wrapper {
+    position: relative;
+    flex-shrink: 0;
 }
 
-.tabs .active {
-  color: #111827;
+.myst-story-cover {
+    width: 164px;
+    height: 246px;
+    object-fit: cover;
+    border-radius: 12px;
+    box-shadow: 0 8px 28px rgba(0,0,0,0.16);
 }
 
-.tabs .active::after {
-  content: "";
-  position: absolute;
-  bottom: -1px;
-  left: 0;
-  height: 3px;
-  width: 100%;
-  background: #ff5000;
+.myst-menu-icon {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: rgba(0,0,0,0.55);
+    color: white;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.15rem;
+    cursor: pointer;
 }
 
-/* EMPTY CARD */
-.stories-card {
-  background: white;
-  padding: 60px;
-  text-align: center;
-  border-radius: 16px;
-  box-shadow: 0 6px 20px rgba(0,0,0,.05);
-  margin-bottom: 40px;
+.myst-story-info {
+    flex: 1;
 }
 
-.empty-icon {
-  font-size: 3rem;
-  margin-bottom: 20px;
+.myst-story-title {
+    font-size: 1.9rem;
+    font-weight: 700;
+    margin: 0 0 10px 0;
+    color: #111;
 }
 
-.stories-card h3 {
-  margin-bottom: 10px;
+.myst-story-meta {
+    color: #555;
+    font-size: 1.08rem;
+    margin: 0 0 8px 0;
 }
 
-.stories-card p {
-  color: #6b7280;
-  margin-bottom: 20px;
+.myst-updated {
+    color: #888;
+    font-size: 0.97rem;
+    margin-bottom: 20px;
 }
 
-/* STORIES LIST */
-.stories-list {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
+.myst-stats-bar {
+    display: flex;
+    gap: 28px;
+    margin-bottom: 28px;
 }
 
-/* STORY CARD */
-.story-card {
-  display: flex;
-  align-items: center;
-  background: white;
-  padding: 24px;
-  border-radius: 16px;
-  box-shadow: 0 8px 24px rgba(0,0,0,.06);
-  transition: 0.3s ease;
+    .myst-stats-bar span {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        color: #444;
+        font-weight: 500;
+    }
+
+.myst-action-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
 }
 
-.story-card:hover {
-  transform: translateY(-6px);
+.myst-continue-btn {
+    background: #ff5a00;
+    color: white;
+    border: none;
+    padding: 14px 30px;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 1.08rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    transition: all 0.25s;
 }
 
-.story-cover {
-  width: 90px;
-  height: 130px;
-  background: linear-gradient(135deg, #ff5000, #ff7a3d);
-  color: white;
-  font-size: 2.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-right: 24px;
-  border-radius: 10px;
+    .myst-continue-btn:hover {
+        background: #e64a00;
+    }
+
+.myst-stats-btn,
+.myst-share-btn,
+.myst-more-btn {
+    background: #f8f9fa;
+    color: #444;
+    border: none;
+    padding: 14px 22px;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
 }
 
-.story-info {
-  flex: 1;
+    .myst-stats-btn:hover,
+    .myst-share-btn:hover,
+    .myst-more-btn:hover {
+        background: #e5e5e5;
+    }
+
+.myst-small {
+    font-size: 0.92rem;
 }
 
-.story-info h3 {
-  margin-bottom: 6px;
-  font-size: 1.2rem;
+/* ── Promo Sidebar ──────────────────────────────────── */
+.myst-promo-sidebar {
+    position: sticky;
+    top: 100px;
+    height: fit-content;
 }
 
-.story-info p {
-  font-weight: 600;
-  margin-bottom: 6px;
+.myst-promo-card {
+    background: white;
+    border-radius: 16px;
+    padding: 30px;
+    box-shadow: 0 6px 22px rgba(0,0,0,0.09);
+    text-align: center;
 }
 
-.story-info span {
-  color: #6b7280;
-  font-size: 0.85rem;
+    .myst-promo-card h3 {
+        font-size: 1.55rem;
+        margin: 0 0 22px 0;
+        color: #ff5a00;
+    }
+
+.myst-promo-image {
+    width: 100%;
+    border-radius: 12px;
+    margin-bottom: 18px;
 }
 
-.story-meta {
-  margin-top: 10px;
-  display: flex;
-  gap: 16px;
-  font-size: 0.85rem;
-  color: #6b7280;
+.myst-promo-card p {
+    color: #555;
+    margin-bottom: 22px;
+    line-height: 1.45;
 }
 
-.story-actions {
-  display: flex;
-  gap: 12px;
+.myst-promo-link {
+    color: #ff5a00;
+    font-weight: 700;
+    text-decoration: none;
 }
 
-/* BUTTON */
-.btn--outline {
-  background: transparent;
-  border: 2px solid #111827;
-  padding: 10px 16px;
-  border-radius: 8px;
-  cursor: pointer;
+    .myst-promo-link:hover {
+        text-decoration: underline;
+    }
+
+/* Responsive */
+@media (max-width: 1100px) {
+    .myst-main-container {
+        grid-template-columns: 1fr;
+    }
+
+    .myst-promo-sidebar {
+        display: none;
+    }
 }
 
-.btn--outline:hover {
-  background: #111827;
-  color: white;
+@media (max-width: 768px) {
+    .myst-main-container {
+        padding: 0 20px;
+    }
+
+    .myst-card-left {
+        flex-direction: column;
+        gap: 24px;
+    }
+
+    .myst-story-cover {
+        width: 150px;
+        height: 225px;
+        margin: 0 auto;
+    }
 }

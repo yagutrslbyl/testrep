@@ -1,0 +1,302 @@
+﻿/* LAYOUT */
+
+.chapter-navigation {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 60px;
+}
+
+
+.nav-btn {
+    padding: 14px 32px;
+    border-radius: 0;
+    border: 1px solid #ff612f;
+    background: white;
+    color: #ff612f;
+    font-weight: 600;
+    text-decoration: none;
+    transition: 0.2s ease;
+}
+
+    /* Hover */
+    .nav-btn:hover {
+        background: #ff612f;
+        color: white;
+        border-color: #ff612f;
+    }
+
+    /* Primary eyni olsun */
+    .nav-btn.primary {
+        background: white;
+        color: #ff612f;
+        border: 1px solid #ff612f;
+    }
+
+.chapter-page {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    gap: 40px;
+    padding: 40px 0;
+}
+
+/* SOL TƏRƏF */
+.chapter-card {
+    background: #fafafa;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+}
+
+/* Mətn */
+.chapter-text p {
+    margin-bottom: 1.6em;
+    line-height: 1.8;
+}
+
+/* NAVIGATION */
+.chapter-navigation {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 60px;
+    padding-top: 30px;
+    border-top: 1px solid #e0e0e0;
+}
+
+/* BUTTON */
+/*.nav-btn {
+    padding: 14px 28px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    background: white;
+    cursor: pointer;
+    font-weight: 600;
+    transition: 0.2s ease;
+}
+
+    .nav-btn:hover {
+        background: #f2f2f2;
+    }
+
+    .nav-btn.primary {
+        background: #ff4081;
+        color: white;
+        border: none;
+    }*/
+
+/*        .nav-btn.primary:hover {
+            opacity: 0.9;
+        }
+*/
+/* SIDEBAR */
+.chapter-sidebar {
+    min-width: 250px;
+}
+
+.sidebar-card {
+    background: #fafafa;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+    .chapter-page {
+        grid-template-columns: 1fr;
+    }
+
+    .chapter-sidebar {
+        margin-top: 40px;
+    }
+}
+/* TOPBAR */
+.story-topbar {
+    width: 100%;
+    background: white;
+    border-bottom: 1px solid #e5e5e5;
+    padding: 14px 7px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* SOL HİSSƏ */
+.topbar-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.mini-cover {
+    width: 45px;
+    height: 65px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.story-info h4 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.story-info span {
+    font-size: 14px;
+    color: #777;
+}
+
+/* SAĞ HİSSƏ */
+.topbar-right {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+/* PLUS BUTTON */
+.add-btn {
+    width: 38px;
+    height: 38px;
+    background: #ff612f;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+    .add-btn:hover {
+        background: #e05529;
+    }
+.chapter-navigation,
+.nav-btn {
+    position: static !important;
+}
+/* VOTE BUTTON */
+.vote-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: none;
+    border: none;
+    font-size: 16px;
+    font-weight: 600;
+    color: #ff612f;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+    .vote-btn:hover {
+        opacity: 0.7;
+    }
+/* ===============================
+   RCM COMMENT SYSTEM
+================================ */
+
+.chapter-text p {
+    position: relative;
+}
+
+.rcm-comment-icon {
+    position: absolute;
+    right: -35px;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0;
+    cursor: pointer;
+    font-size: 14px;
+    transition: 0.2s;
+}
+
+.chapter-text p:hover .rcm-comment-icon {
+    opacity: 1;
+}
+
+
+/* Modal */
+.rcm-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.45);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.2s;
+    z-index: 9999;
+}
+
+    .rcm-modal.rcm-active {
+        opacity: 1;
+        visibility: visible;
+    }
+
+.rcm-box {
+    width: 400px;
+    max-height: 80vh;
+    background: #fff;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* Header */
+.rcm-header {
+    padding: 12px 16px;
+    background: #f6f6f6;
+    display: flex;
+    justify-content: space-between;
+    font-weight: 600;
+}
+
+.rcm-close {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+/* Body */
+.rcm-body {
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.rcm-list {
+    flex: 1;
+    overflow-y: auto;
+    margin-bottom: 10px;
+}
+
+.rcm-item {
+    background: #f2f2f2;
+    padding: 8px 10px;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+/* Form */
+.rcm-form textarea {
+    width: 100%;
+    height: 70px;
+    resize: none;
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+}
+
+.rcm-send {
+    margin-top: 8px;
+    padding: 8px;
+    border: none;
+    border-radius: 6px;
+    background: #ff6b81;
+    color: white;
+    cursor: pointer;
+}

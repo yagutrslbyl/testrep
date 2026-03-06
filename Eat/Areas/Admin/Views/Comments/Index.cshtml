@@ -1,0 +1,37 @@
+﻿@model List<Comment>
+
+<h2>All Comments</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>User</th>
+            <th>Story</th>
+            <th>Comment</th>
+            <th>Date</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var comment in Model)
+        {
+            <tr>
+                <td>@comment.User.UserName</td>
+                <td>@comment.Story.Title</td>
+                <td>@comment.Content</td>
+                <td>@comment.CreatedDate.ToShortDateString()</td>
+
+                <td>
+                    <a asp-area="Admin"
+                       asp-controller="Comments"
+                       asp-action="Delete"
+                       asp-route-id="@comment.Id"
+                       class="btn btn-danger">
+                        Delete
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

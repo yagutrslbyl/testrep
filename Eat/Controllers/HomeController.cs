@@ -15,7 +15,15 @@ namespace Eat.Controllers
         {
             _context = context;
         }
-
+        
+        public IActionResult Premium()
+        {
+            return View();
+        }
+        public IActionResult Community()
+        {
+            return View();
+        }
         public async Task<IActionResult> Index()
         {
             // Publish edilmiş storyleri al, en az 1 published chapter içerenleri

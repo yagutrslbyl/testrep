@@ -71,9 +71,9 @@
                 <a asp-controller="Home" asp-action="Index" class="logo">StoryVerse</a>
 
                 <nav class="nav">
-                    <a href="#">Browse</a>
-                    <a href="#">Community</a>
-                    <a href="#">Premium</a>
+                  
+                    <a asp-controller="Home" asp-action="Community">Community</a>
+                    <a asp-controller="Home" asp-action="Premium">Premium</a>
                 </nav>
             </div>
 
@@ -211,7 +211,7 @@
                 <a href="#">Browse</a>
                 <a href="#">Premium</a>
                 <a href="#">Writing Contests</a>
-                <a href="#">Community</a>
+                <a asp-controller="Home" asp-action="Community">Community</a>
             </div>
 
             <div>

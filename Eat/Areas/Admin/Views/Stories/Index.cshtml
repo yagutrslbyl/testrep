@@ -1,0 +1,35 @@
+﻿@model List<Story>
+
+<h2>Published Stories</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Created</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var story in Model)
+        {
+            <tr>
+                <td>@story.Title</td>
+                <td>@story.User.UserName</td>
+                <td>@story.CreatedDate.ToShortDateString()</td>
+
+                <td>
+                    <a asp-area="Admin"
+                       asp-controller="Stories"
+                       asp-action="Delete"
+                       asp-route-id="@story.Id"
+                       class="btn btn-danger">
+                        Delete
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

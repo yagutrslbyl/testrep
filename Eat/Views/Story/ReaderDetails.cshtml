@@ -12,7 +12,10 @@
             <h1>@Model.Title</h1>
 
             <div class="story-author">
-                by <strong>@Model.AuthorName</strong>
+                by
+                <a asp-controller="Profile" asp-action="Index" asp-route-id="@Model.AuthorId">
+                    @Model.AuthorName
+                </a>
             </div>
 
             <div class="story-stats">

@@ -7,6 +7,8 @@
         public string CoverImageUrl { get; set; }
         public string Description { get; set; }
         public string AuthorName { get; set; }
+        public string AuthorId { get; set; }
+
         public string Language { get; set; }
         public List<string> Tags { get; set; }
         public int TotalViews { get; set; }

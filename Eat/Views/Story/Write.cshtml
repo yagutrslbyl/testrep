@@ -34,12 +34,12 @@
         <div class="header-left">
                 <div class="story-header">
                     <div class="story-info">
-                        <button asp-controller="Story"
+                        <a asp-controller="Story"
                                 asp-action="StoryDetails"
                                 asp-route-id="@Model.StoryId"
                                 class="dropdown-arrow">
                             ↢
-                        </button>
+                        </a>
                         
                     </div>
                 </div>
@@ -90,8 +90,14 @@
                 <button type="submit" class="btn btn-light">Save</button>
                 @if (Model.Id != null && Model.Id > 0)
                 {
-                    <button type="submit"
+                    @* <button type="submit"
                             formaction="@Url.Action("PublishChapter", "Story")"
+                            formmethod="post"
+                            class="btn btn-dark">
+                        Publish
+                    </button> *@
+                    <button type="submit"
+                            formaction="@Url.Action("PublishChapter", "Story", new { id = Model.Id })"
                             formmethod="post"
                             class="btn btn-dark">
                         Publish

@@ -14,6 +14,7 @@ namespace Eat.Controllers
    
     public class StoryController : Controller
     {
+        private const string V = "Notfound";
         private readonly AppDbContext _context;
         private readonly IWebHostEnvironment _env;
         UserManager<AppUser> _userManager;
@@ -331,19 +332,20 @@ namespace Eat.Controllers
             return View(stories);
         }
         [HttpGet]
-        public async Task<IActionResult> StoryDetails(int? id)
+        public async Task<IActionResult> StoryDetails(int id)
         {
             if (id == null)
-                return NotFound();
+            {
+                return Content("not found");
+            }
 
             var story = await _context.Stories
-                .Include(s => s.Chapters)     // Chapter bilgisi
-                .Include(s => s.Comments)     // Comment sayısı için
-                .Include(s => s.User)         // Author bilgisi
-                .FirstOrDefaultAsync(s => s.Id == id && s.IsPublished);
+       .Include(s => s.Chapters)
+       .Include(s => s.Comments)
+       .Include(s => s.User)
+       .FirstOrDefaultAsync(s => s.Id == id);
 
-            if (story == null)
-                return NotFound();
+           
 
             var vm = new StoryDashboardVM
             {
@@ -541,6 +543,7 @@ namespace Eat.Controllers
                 Title = story.Title,
                 CoverImageUrl = story.CoverImageUrl,
                 Description = story.Description,
+                AuthorId=story.User.Id,
                 AuthorName = story.User.UserName,
                 Language = story.Language,
                 Tags = story.Tags?.Split(',', StringSplitOptions.RemoveEmptyEntries).ToList() ?? new List<string>(),

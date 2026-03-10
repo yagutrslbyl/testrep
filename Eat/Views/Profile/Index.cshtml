@@ -171,9 +171,9 @@
                         
                         <a asp-controller="story" asp-action="ReaderDetails" asp-route-id="@story.Id" style="text-decoration:none; color:inherit;">@(story.Title ?? "Untitled") | @Model.User?.UserName</a>
                         <div class="prf-stats-small">
-                            <span>@story.Views</span> •
+                            @* <span>@story.Views</span> •
                             <span>@story.Votes</span> •
-                            <span>@(story.Comments?.Count ?? 0) comments</span>
+                            <span>@(story.Comments?.Count ?? 0) comments</span> *@
                         </div>
                         <p>@(story.Description ?? "")</p>
                         <div class="prf-tags-line">

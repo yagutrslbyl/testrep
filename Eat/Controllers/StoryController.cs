@@ -406,7 +406,7 @@ namespace Eat.Controllers
                 .FirstOrDefaultAsync(c => c.Id == id);
 
             if (chapter == null)
-                return NotFound();
+                return View(new CreateChapterVM());
 
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 

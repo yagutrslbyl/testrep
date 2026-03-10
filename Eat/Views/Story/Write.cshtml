@@ -20,6 +20,7 @@
 
     <form asp-action="SaveChapter" method="post">
         @Html.AntiForgeryToken()
+        
 
 
         <input type="hidden" asp-for="StoryId" />
@@ -85,26 +86,24 @@
 
 
         <!-- RIGHT ACTIONS -->
-        <div class="header-right">
-                <a class="btn btn--dark" asp-controller="Story" asp-action="ReadChapter"  asp-route-id="@Model.Id" >Preview</a>
-                <button type="submit" class="btn btn-light">Save</button>
+            <div class="header-right">
+                <a class="btn btn--dark" asp-controller="Story" asp-action="ReadChapter" asp-route-id="@Model.Id">Preview</a>
+
+                <button type="submit" class="btn btn-light" formaction="@Url.Action("SaveChapter", "Story")">
+                    Save
+                </button>
+
                 @if (Model.Id != null && Model.Id > 0)
                 {
-                    @* <button type="submit"
-                            formaction="@Url.Action("PublishChapter", "Story")"
-                            formmethod="post"
-                            class="btn btn-dark">
-                        Publish
-                    </button> *@
                     <button type="submit"
+                            class="btn btn-dark"
                             formaction="@Url.Action("PublishChapter", "Story")"
                             formmethod="post"
-                            class="btn btn-dark">
+                            name="publish">
                         Publish
                     </button>
                 }
-       
-        </div>
+            </div>
 
     </header>
 
@@ -141,13 +140,31 @@
 
 </body>
 <script>
-    const editor = document.getElementById("editor");
-    const hiddenInput = document.getElementById("hiddenContent");
-    const form = document.querySelector("form");
+    document.addEventListener("DOMContentLoaded", function () {
+        const form = document.querySelector("form");
+        const editor = document.getElementById("editor");
+        const hiddenInput = document.getElementById("hiddenContent");
 
-    form.addEventListener("submit", function () {
-        hiddenInput.value = editor.innerHTML;
+        if (!form || !editor || !hiddenInput) return;
+
+        form.addEventListener("submit", function (e) {
+            // Editor içeriğini hidden textarea'ya aktar
+            hiddenInput.value = editor.innerHTML;
+
+            // Publish butonuna basıldıysa id eksik olmasın
+            const publishBtn = document.activeElement;
+            if (publishBtn && publishBtn.name === "publish") {
+                // Eğer PublishChapter action id parametresi istiyorsa hidden input ekle
+                let chapterIdInput = document.querySelector("input[name='chapterId']");
+                if (!chapterIdInput) {
+                    chapterIdInput = document.createElement("input");
+                    chapterIdInput.type = "hidden";
+                    chapterIdInput.name = "id"; // controller'daki parametre ile aynı olmalı
+                    chapterIdInput.value = document.querySelector("input[name='Id']").value;
+                    form.appendChild(chapterIdInput);
+                }
+            }
+        });
     });
-   
 </script>
 </html>
